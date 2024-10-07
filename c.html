@@ -47,7 +47,7 @@
                 <li class="Navigation-Button"><a href="./e.html"><i class="las la-hourglass-half"></i><p>Emulator</p></a></li>
                 <li class="Navigation-Button"><a href="./c.html"><i class="las la-file"></i><p>💧</p></a></li>
                 <li class="Navigation-Button"><a href="./settings.html"><i class="las la-cog"></i><p>Settings</p></a></li>
-            </ul>
+            <ul>
         </div>
     </nav>
     
@@ -67,13 +67,22 @@
         </center>
         <hr>
         <center style="padding: 2em 0 0 0">
+
             <input type="text" class="Settings-TextInput" id="GameSearchBar" placeholder="Search For Project">
         </center>
     </div>
 
     <div class="Projects-Container hideAfterFullscreen">
-        <!-- Your project content goes here -->
+        <div class="Projects-Project">
+            <a onclick="WidgetBot()">
+                <img src="./Assests/Imgs/WidgetBot.png" loading="lazy" onerror="this.src='./Assests/Imgs/NoIcon.png'"/>
+                <h1>Unberserk</h1>
+            </a>
+        </div>
     </div>
 
+    <script src="./Assests/JS/aboutblank.js"></script>
+    <script src="./Assests/JS/options.js"></script>
+    <script src="./Assests/JS/c.js"></script>
 </body>
 </html>
