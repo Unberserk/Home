@@ -5,7 +5,7 @@ const IFrame = document.querySelector(".Projects-IFrame");
 async function addGames() {
   try {
     const vdn = await (await fetch("./Hosting/RWA.json")).json();
-    const games = await (await fetch(vdn + "list.json")).json();
+    const games = await (await fetch(rwa + "list.json")).json();
     games.sort((a, b) => a.game.localeCompare(b.game));
 
     for (const game of games) {
