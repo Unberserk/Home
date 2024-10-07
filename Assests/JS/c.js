@@ -4,7 +4,7 @@ const IFrame = document.querySelector(".Projects-IFrame");
 
 async function addGames() {
   try {
-    const vdn = await (await fetch("./Hosting/RWA.json")).json();
+    const rwa = await (await fetch("./Hosting/RWA.json")).json();
     const games = await (await fetch(rwa + "list.json")).json();
     games.sort((a, b) => a.game.localeCompare(b.game));
 
@@ -12,7 +12,7 @@ async function addGames() {
       const project = document.createElement("div");
       project.className = "Projects-Project";
       project.innerHTML = `
-                <img src="${vdn}Icons/${game.game.replace(
+                <img src="${rwa}Icons/${game.game.replace(
         /[.\s]/g,
         ""
       )}.png" loading="lazy" onerror="this.src='./Assests/Imgs/NoIcon.png'"/>
@@ -22,7 +22,7 @@ async function addGames() {
       project.addEventListener("click", () => {
         HAF.forEach((element) => element.classList.add("hidden"));
         Frame.classList.remove("hidden");
-        IFrame.src = `${vdn}${game.gameroot}`;
+        IFrame.src = `${rwa}${game.gameroot}`;
       });
     }
   } catch (error) {
