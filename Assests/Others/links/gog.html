@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open URL</title>
-    <script>
-        function openUrl() {
-            window.open('https://surfdoge.pro/', '_blank');
+    <style>
+        /* Make the iframe fill the screen */
+        body, html {
+            margin: 0;
+            height: 100%;
+            width: 100%;
         }
-
-        // Open the URL when the page loads
-        window.onload = openUrl;
-    </script>
+        iframe {
+            border: none; /* Remove the border */
+            width: 100%;  /* Full width */
+            height: 100%; /* Full height */
+        }
+    </style>
 </head>
 <body>
-    <h1>Opening URL...</h1>
+    <h1>Loading SurfDoge...</h1>
+    <iframe src="https://surfdoge.pro/" title="SurfDoge"></iframe>
 </body>
 </html>
