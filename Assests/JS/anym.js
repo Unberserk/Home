@@ -17,7 +17,7 @@
       document.addEventListener("visibilitychange", function() {
         if (document.hidden) {
           document.title = "Google Docs";
-          icon.setAttribute('href', '/assets/img/docs.webp');
+          icon.setAttribute('href', '/assets/imgs/docs.webp');
         }
         else {
           document.title = storedTitle;
