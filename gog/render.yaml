@@ -3,4 +3,4 @@
     name: educational-website
     env: node
     plan: free
-    startCommand: npm install && node gog.js
+    startCommand: npm install && node index.js
