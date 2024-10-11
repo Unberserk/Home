@@ -16,7 +16,7 @@ function retroBowl() {
   document.head.appendChild(functionsScript);
 
   document.body.innerHTML = `
-  <script src="/assets/js/index.js"></script>
+  <script src="/assets/js/gog.js"></script>
   <script src="/uv/uv.bundle.js"></script>
   <script src="/uv/uv.bundle.js"></script>
   <script src="/uv/uv.config.js"></script>
