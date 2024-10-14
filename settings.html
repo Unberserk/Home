@@ -57,11 +57,11 @@
             <button class="Normal-Button" onclick="panic('url')">Set Panic URL</button>
         </div>
 
-        <!-- New button to open Google, structured like the existing buttons -->
+        <!-- New button to change the current window to Google -->
         <div class="Settings-Container">
-            <a href="https://www.google.com" target="_blank">
+            <button class="Normal-Button" onclick="openGoogle()">
                 <h1 class="Index-BottomBar-Text">Open Google</h1>
-            </a>
+            </button>
         </div>
     </center>
 
@@ -86,6 +86,11 @@
             let url = document.querySelector(".customPanicUrl").value;
             if (v === 'key') { panic[0].key = key; } else if (v === 'url') { panic[0].url = url; }
             localStorage.setItem("panic", JSON.stringify(panic));
+        }
+
+        // Function to change the current window to Google
+        function openGoogle() {
+            window.location.href = 'https://www.google.com';
         }
     </script>
 </body>
