@@ -19,7 +19,7 @@
                 <li class="Navigation-Button"><a href="./u.html"><i class="las la-file"></i><p>Cinema</p></a></li>
                 <li class="Navigation-Button"><a href="./e.html"><i class="las la-hourglass-half"></i><p>Emulator</p></a></li>
                 <li class="Navigation-Button"><a href="./settings.html"><i class="las la-cog"></i><p>Settings</p></a></li>
-            <ul>
+            </ul>
         </div>
     </nav>
 
@@ -29,9 +29,8 @@
     </div>
 
     <center>
-        <h1 class="Settings-Header">Apperence</h1>
+        <h1 class="Settings-Header">Appearance</h1>
         <div class="Settings-Container">
-            <!-- ARTCLASS GAVE ME THIS IDEA THANK YOU!!! -->
             <button class="Normal-Button" onclick='localStorage.removeItem("cloak"); window.location.reload();'><img src="./Assests/Imgs/Logo.png" title="Default/Railin'"></button>
             <button class="Normal-Button" onclick='setIcon("./Assests/Imgs/cloaks/classroom.png", "Home");'><img src="./Assests/Imgs/cloaks/classroom.png" title="Google Classroom"></button>
             <button class="Normal-Button" onclick='setIcon("./Assests/Imgs/cloaks/canvas.png", "Dashboard");'><img src="./Assests/Imgs/cloaks/canvas.png" title="Canvas"></button>
@@ -52,23 +51,42 @@
         <div class="Settings-Container">
             <input class="Settings-TextInput customPanicKey" type="text" placeholder="Enter Key">
             <button class="Normal-Button" onclick="panic('key')">Set Panic Key</button>
-        </div> <div class="Settings-Container">
+        </div> 
+        <div class="Settings-Container">
             <input class="Settings-TextInput customPanicUrl" type="text" placeholder="Enter URL">
             <button class="Normal-Button" onclick="panic('url')">Set Panic URL</button>
+        </div>
+
+        <!-- New button to open Google, structured like the existing buttons -->
+        <div class="Settings-Container">
+            <a href="https://www.google.com" target="_blank">
+                <h1 class="Index-BottomBar-Text">Open Google</h1>
+            </a>
         </div>
     </center>
 
     <script src="./Assests/JS/options.js"></script>
     <script>
-        function setIcon(img, name) { localStorage.removeItem('cloak'); var icon = JSON.parse(localStorage.getItem("cloak")) || []; icon.push({ img: img, name: name }); localStorage.setItem("cloak", JSON.stringify(icon)); window.location.reload(); }
-        document.getElementById('themes').addEventListener('change', () => { localStorage.setItem("theme", document.getElementById('themes').value); window.location.reload(); });
+        function setIcon(img, name) {
+            localStorage.removeItem('cloak');
+            var icon = JSON.parse(localStorage.getItem("cloak")) || [];
+            icon.push({ img: img, name: name });
+            localStorage.setItem("cloak", JSON.stringify(icon));
+            window.location.reload();
+        }
+
+        document.getElementById('themes').addEventListener('change', () => {
+            localStorage.setItem("theme", document.getElementById('themes').value);
+            window.location.reload();
+        });
+
         function panic(v) {
             let panic = JSON.parse(localStorage.getItem('panic')) || [{ url: "", key: "" }];
             let key = document.querySelector(".customPanicKey").value;
             let url = document.querySelector(".customPanicUrl").value;
             if (v === 'key') { panic[0].key = key; } else if (v === 'url') { panic[0].url = url; }
             localStorage.setItem("panic", JSON.stringify(panic));
-        }           
+        }
     </script>
 </body>
 </html>
