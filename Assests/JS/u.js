@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             Frame.classList.remove("hidden");
 
             // Load the GitHub Pages website inside the iframe
-            IFrame.src = "https://unberserk.github.io/ufiles/";
+            IFrame.src = "https://ufiles.vercel.app/";
         });
     }
 
