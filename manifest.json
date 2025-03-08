@@ -5,7 +5,7 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#646464",
+  "theme_color": "#323232",
   "icons": [
     {
       "src": "/Assests/Imgs/Logo.png",
