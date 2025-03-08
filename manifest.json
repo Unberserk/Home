@@ -8,12 +8,12 @@
   "theme_color": "#ff6600",
   "icons": [
     {
-      "src": "/Assests/Imgs/logo.png",
+      "src": "/Assests/Imgs/Logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/Assests/Imgs/logo.png",
+      "src": "/Assests/Imgs/Logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
