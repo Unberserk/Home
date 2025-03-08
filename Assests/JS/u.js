@@ -1,64 +1,43 @@
-const Frame = document.querySelector(".Projects-Frame");
-const HAF = document.querySelectorAll(".hideAfterFullscreen");
-const IFrame = document.querySelector(".Projects-IFrame");
+document.addEventListener("DOMContentLoaded", function () {
+    const cinemaButton = document.querySelector(".Navigation-Button a[href='./u.html']");
+    const Frame = document.querySelector(".Projects-Frame");
+    const HAF = document.querySelectorAll(".hideAfterFullscreen");
+    const IFrame = document.querySelector(".Projects-IFrame");
+    const closeButton = document.getElementById("close");
 
-async function addGames() {
-  try {
-    const vdn = await (await fetch("./Hosting/VDN.json")).json();
-    const games = await (await fetch(vdn + "list.json")).json();
-    games.sort((a, b) => a.game.localeCompare(b.game));
+    if (cinemaButton) {
+        cinemaButton.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevents default navigation
 
-    for (const game of games) {
-      const project = document.createElement("div");
-      project.className = "Projects-Project";
-      project.innerHTML = `
-                <img src="${vdn}Icons/${game.game.replace(
-        /[.\s]/g,
-        ""
-      )}.png" loading="lazy" onerror="this.src='./Assests/Imgs/NoIcon.png'"/>
-                <h1>${game.game}</h1>`;
-      document.querySelector(".Projects-Container").appendChild(project);
+            // Hide other elements & show iframe
+            HAF.forEach(element => element.classList.add("hidden"));
+            Frame.classList.remove("hidden");
 
-      project.addEventListener("click", () => {
-        HAF.forEach((element) => element.classList.add("hidden"));
-        Frame.classList.remove("hidden");
-        IFrame.src = `${vdn}${game.gameroot}`;
-      });
+            // Load the GitHub Pages website inside the iframe
+            IFrame.src = "https://unberserk.github.io/ufiles/";
+        });
     }
-  } catch (error) {
-    console.error(error);
-  }
-}
 
-Frame.querySelector(".Projects-FrameBar").addEventListener("click", (event) => {
-  if (event.target.id === "close") {
-    HAF.forEach((element) => element.classList.remove("hidden"));
-    Frame.classList.add("hidden");
-    IFrame.src = "";
-  } else if (event.target.id === "fullscreen") {
-    const requestFullscreen =
-      IFrame.requestFullscreen ||
-      IFrame.webkitRequestFullscreen ||
-      IFrame.msRequestFullscreen;
-    requestFullscreen.call(IFrame);
-  } else if (event.target.id === "link") window.open(IFrame.src);
+    // Close button functionality
+    if (closeButton) {
+        closeButton.addEventListener("click", function () {
+            HAF.forEach(element => element.classList.remove("hidden"));
+            Frame.classList.add("hidden");
+            IFrame.src = ""; // Reset iframe when closed
+        });
+    }
+
+    // Fullscreen functionality
+    document.getElementById("fullscreen").addEventListener("click", function () {
+        const requestFullscreen =
+            IFrame.requestFullscreen ||
+            IFrame.webkitRequestFullscreen ||
+            IFrame.msRequestFullscreen;
+        if (requestFullscreen) requestFullscreen.call(IFrame);
+    });
+
+    // Open in new tab
+    document.getElementById("link").addEventListener("click", function () {
+        if (IFrame.src) window.open(IFrame.src);
+    });
 });
-
-document.getElementById("GameSearchBar").addEventListener("input", () => {
-  const searchedup = document
-    .getElementById("GameSearchBar")
-    .value.trim()
-    .toLowerCase();
-  const gameholders = document.querySelector(".Projects-Container");
-  const gmae = gameholders.querySelectorAll(".Projects-Project");
-
-  gmae.forEach((game) => {
-    var gamenames = game.querySelector("h1").innerText.trim().toLowerCase();
-    if (gamenames.includes(searchedup)) game.classList.remove("hidden");
-    else game.classList.add("hidden");
-  });
-});
-
-addGames();
-
-// dont mind this
