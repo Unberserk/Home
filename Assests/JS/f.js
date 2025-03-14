@@ -14,13 +14,17 @@ document.getElementById('addButton').addEventListener('click', function() {
             linkImage.classList.add('link-image');
             linkImage.style.backgroundImage = 'url(' + e.target.result + ')';
 
-            var linkNameElement = document.createElement('a');
+            // Link as the box's redirect
+            linkItem.onclick = function() {
+                window.open(linkInput, '_blank');
+            };
+
+            // Title of the link below the image
+            var linkNameElement = document.createElement('span');
             linkNameElement.classList.add('link-name');
-            linkNameElement.href = linkInput;
-            linkNameElement.target = '_blank';
             linkNameElement.textContent = linkName;
 
-            // Create remove button
+            // Create remove button (a small "X" circle)
             var removeButton = document.createElement('button');
             removeButton.classList.add('remove-button');
             removeButton.textContent = 'X';
