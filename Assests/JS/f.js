@@ -13,10 +13,18 @@ function addLink() {
     linkBox.setAttribute('href', linkInput.value); // Link the URL to the anchor tag
     linkBox.setAttribute('target', '_blank'); // Open link in a new tab
 
+    // Create a local image preview
     const img = document.createElement('img');
     img.classList.add('link-image');
-    img.src = imageInput.value; // Set the image source to the input value
-    img.alt = "Website Image"; // Alt text for accessibility
+    
+    // Check if an image is selected
+    if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            img.src = e.target.result; // Set the image preview
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+    }
 
     const title = document.createElement('input');
     title.type = 'text';
