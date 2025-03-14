@@ -1,57 +1,42 @@
 document.getElementById('addButton').addEventListener('click', function() {
-    const linkName = document.getElementById('linkName').value;
-    const linkUrl = document.getElementById('linkInput').value;
-    const imageFile = document.getElementById('imageInput').files[0];
+    var linkInput = document.getElementById('linkInput').value;
+    var linkName = document.getElementById('linkName').value;
+    var imageInput = document.getElementById('imageInput').files[0];
 
-    // Validate inputs
-    if (linkName === '' || linkUrl === '') {
-        alert('Please provide both a name and a link URL');
-        return;
-    }
+    if (linkInput && linkName && imageInput) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var linkItem = document.createElement('div');
+            linkItem.classList.add('link-item');
 
-    const linkContainer = document.createElement('div');
-    linkContainer.classList.add('link-item');
+            // Image as background for YouTube-like preview
+            var linkImage = document.createElement('div');
+            linkImage.classList.add('link-image');
+            linkImage.style.backgroundImage = 'url(' + e.target.result + ')';
 
-    // Set the link name
-    const linkTitle = document.createElement('span');
-    linkTitle.textContent = linkName;
-    linkTitle.classList.add('link-name');
-    linkTitle.onclick = function() {
-        window.location.href = linkUrl;  // Redirect when the link name is clicked
-    };
+            var linkNameElement = document.createElement('a');
+            linkNameElement.classList.add('link-name');
+            linkNameElement.href = linkInput;
+            linkNameElement.target = '_blank';
+            linkNameElement.textContent = linkName;
 
-    // Handle image
-    const imagePreview = document.createElement('img');
-    if (imageFile) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            imagePreview.src = event.target.result;
-            imagePreview.classList.add('link-image');
+            // Create remove button
+            var removeButton = document.createElement('button');
+            removeButton.classList.add('remove-button');
+            removeButton.textContent = 'X';
+            removeButton.onclick = function() {
+                linkItem.remove();
+            };
+
+            // Append everything to the link item
+            linkItem.appendChild(linkImage);
+            linkItem.appendChild(linkNameElement);
+            linkItem.appendChild(removeButton);
+
+            // Add link item to the links container
+            document.getElementById('linksContainer').appendChild(linkItem);
         };
-        reader.readAsDataURL(imageFile);
-    } else {
-        imagePreview.src = './Assests/Imgs/NoImageAvailable.png';  // Default image
-        imagePreview.classList.add('link-image');
+
+        reader.readAsDataURL(imageInput);
     }
-
-    // Create remove button (simple X button)
-    const removeButton = document.createElement('button');
-    removeButton.textContent = 'X';
-    removeButton.classList.add('remove-button');
-    removeButton.onclick = function() {
-        linkContainer.remove();
-    };
-
-    // Append elements to the link container
-    linkContainer.appendChild(linkTitle);
-    linkContainer.appendChild(imagePreview);
-    linkContainer.appendChild(removeButton);
-
-    // Add the new link container to the links list
-    document.getElementById('linksContainer').appendChild(linkContainer);
-
-    // Clear the input fields after adding the link
-    document.getElementById('linkName').value = '';
-    document.getElementById('linkInput').value = '';
-    document.getElementById('imageInput').value = '';
 });
