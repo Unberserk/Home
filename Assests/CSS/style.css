@@ -60,22 +60,44 @@ body {
     font-size: 20px;
 }
 
-/* ======= PAGE CONTENT ======= */
+/* ======= PAGE CONTENT (Buttons) ======= */
 .Index-Container {
     text-align: center;
     width: 100%;
     padding-top: 60px; /* Avoid content being hidden behind the navbar */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* FOOTER BAR */
-.Index-BottomBar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: var(--bg-accent1);
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
+/* Additional Button Styling */
+.Index-Button {
+    padding: 10px 20px;
+    background-color: var(--btn-accent2);
+    border-radius: var(--btn-rounding);
+    box-shadow: 0 2px 5px var(--btn-box-shadow);
+    transition: background 0.3s ease, transform 0.3s ease;
+    width: 100%; /* Make it full width on mobile */
+    max-width: 300px; /* Limit the width on larger screens */
+}
+
+.Index-Button:hover {
+    background-color: var(--btn-accent);
+    transform: scale(1.05);
+}
+
+.Index-Button a {
+    text-decoration: none;
+    color: var(--text-color1);
+    display: block;
+}
+
+/* ======= VERTICAL SCROLLING FOR CONTENT BELOW NAVIGATION ======= */
+.Index-Container {
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: calc(100vh - 60px); /* Adjust to not overlap the navbar */
+    padding-bottom: 10px; /* Padding to ensure last button isn't cut off */
 }
 
 /* ======= MOBILE SCROLLING FIXES ======= */
@@ -83,5 +105,12 @@ body {
     /* Ensure smooth scrolling for touch devices */
     .Navigation-Container {
         -webkit-overflow-scrolling: touch; /* Allow smooth scrolling on iOS */
+    }
+
+    /* Buttons styled for mobile view */
+    .Index-Button {
+        padding: 15px 20px;
+        font-size: 16px;
+        width: 90%; /* Slightly smaller for mobile */
     }
 }
