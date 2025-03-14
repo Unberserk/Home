@@ -1,44 +1,52 @@
-/* ======= General Navigation Styling ======= */
+/* General Reset & Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: var(--bg-accent1);
+  color: var(--text-color1);
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Navigation Bar */
 .Navigation {
+  width: 100%;
+  height: 60px;
+  background: var(--bg-accent2);
+  display: flex;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 60px;
-  background-color: var(--bg-accent2);
-  display: flex;
-  align-items: center;
   z-index: 999;
   padding: 0 10px;
+  overflow: visible; /* Remove scrolling */
 }
 
-/* ======= Scrollable Navigation Buttons ======= */
-.Navigation-Buttons {
+/* Container for Navigation Buttons */
+.Navigation-Container {
   display: flex;
-  flex-wrap: nowrap; /* Prevent buttons from wrapping */
-  justify-content: flex-start;
-  overflow-x: auto; /* Horizontal scroll */
-  overflow-y: hidden; /* No vertical scroll */
-  white-space: nowrap;
-  scrollbar-width: none; /* Hides scrollbar */
-  -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
-  padding-left: 10px;
-  gap: 10px; /* Adds space between buttons */
+  align-items: center;
+  width: 100%;
+  overflow: visible; /* Remove horizontal scrolling */
 }
 
-/* Hide Scrollbar */
-.Navigation-Buttons::-webkit-scrollbar {
-  display: none; /* Hides the scrollbar in Webkit browsers */
+/* Logo */
+.Navigation-Image img {
+  height: 40px;
+  margin-right: 10px;
 }
 
-/* ======= Individual Navigation Button ======= */
+/* Individual Navigation Button */
 .Navigation-Button {
   flex: 0 0 auto;
-  min-width: 120px; /* Prevents buttons from shrinking */
-  margin-right: 10px; /* Space between buttons */
+  margin-right: 10px;
 }
 
-/* Styling for Navigation Button Links */
 .Navigation-Button a {
   display: flex;
   align-items: center;
@@ -49,24 +57,25 @@
   color: var(--text-color1);
   border: 1px solid var(--btn-accent);
   text-decoration: none;
-  white-space: nowrap; /* Prevents text from breaking */
-  transition: background-color 0.3s ease;
 }
 
 .Navigation-Button a:hover {
-  background-color: var(--btn-hover); /* Adjust hover effect */
+  border-color: var(--nav-box-hover);
+  transition: 0.3s;
+  cursor: pointer;
 }
 
-/* ======= Mobile View Adjustments ======= */
+/* Responsive Design for Mobile */
 @media screen and (max-width: 768px) {
-  .Navigation-Buttons {
-    padding-left: 10px;
+  /* Mobile layout adjustments */
+  .Navigation-Container {
+    display: flex;
+    flex-direction: row;
     gap: 10px;
-    overflow-x: auto;
-    scroll-behavior: smooth; /* Smooth scroll on mobile */
   }
 
   .Navigation-Button {
-    min-width: 100px; /* Adjust button size for mobile */
+    flex: 0 0 auto;
+    min-width: 100px; /* Buttons won't get squished */
   }
 }
