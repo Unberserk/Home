@@ -7,7 +7,7 @@
   white-space: nowrap;
   scrollbar-width: none; /* Hides the scrollbar */
   -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
-  width: 100%;
+  width: 100vw; /* Make sure it spans the entire screen width */
   padding: 10px 0;
 }
 
@@ -19,9 +19,11 @@
 /* Individual Navigation Button */
 .Navigation-Button {
   flex: 0 0 auto;
-  margin: 0 5px;
+  min-width: 120px; /* Ensures buttons don't get squished */
+  margin-right: 10px;
 }
 
+/* Button styling */
 .Navigation-Button a {
   display: flex;
   align-items: center;
@@ -42,10 +44,11 @@
     overflow-x: auto;
     scroll-behavior: smooth;
     padding-left: 10px;
+    gap: 10px;
   }
 
   .Navigation-Button {
     flex: 0 0 auto;
-    min-width: 120px; /* Ensures buttons have enough space */
+    min-width: 100px;
   }
 }
