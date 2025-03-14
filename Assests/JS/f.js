@@ -8,10 +8,18 @@ function addLink() {
     const newLink = document.createElement('div');
     newLink.classList.add('link-container-item');
 
+    // Get the URL and ensure it is absolute
+    let url = linkInput.value.trim();
+
+    // If the URL does not start with http:// or https://, add https://
+    if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url; // Prefix with https:// if it's missing
+    }
+
     // Create a link that will redirect to the URL
     const linkBox = document.createElement('a');
     linkBox.classList.add('link-box');
-    linkBox.setAttribute('href', linkInput.value); // Link the URL to the anchor tag
+    linkBox.setAttribute('href', url); // Link the URL to the anchor tag
     linkBox.setAttribute('target', '_blank'); // Open link in a new tab
     linkBox.style.display = "block"; // Make sure the link takes up the whole block
 
