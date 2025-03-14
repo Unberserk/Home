@@ -1,53 +1,3 @@
-/* Import Third Party CSS Files First */
-@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Ubuntu:wght@300&display=swap');
-
-/* Imports CSS Files */
-@import url('style.css');
-@import url('theme.css');
-
-/* Reset & Global Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-body {
-  overflow-x: hidden; /* Prevents the whole page from scrolling horizontally */
-  background: var(--bg-accent1);
-  color: var(--text-color1);
-}
-
-/* Navigation Bar */
-.Navigation {
-  width: 100%;
-  height: 60px;
-  background: var(--bg-accent2);
-  display: flex;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  padding: 0 10px;
-  overflow: hidden; /* Ensure the nav itself doesn't move */
-}
-
-/* Container for Navigation Buttons */
-.Navigation-Container {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  overflow: hidden; /* Prevents overflow from affecting the rest of the page */
-}
-
-/* Logo */
-.Navigation-Image img {
-  height: 40px;
-  margin-right: 10px;
-}
-
 /* The Scrollable Navigation Buttons */
 .Navigation-Buttons {
   display: flex;
@@ -57,8 +7,11 @@ body {
   white-space: nowrap;
   scrollbar-width: none; /* Hides the scrollbar */
   -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+  width: 100%;
+  padding: 10px 0;
 }
 
+/* Ensure Scrollbar Works */
 .Navigation-Buttons::-webkit-scrollbar {
   display: none; /* Hides the scrollbar in Webkit browsers */
 }
@@ -79,26 +32,20 @@ body {
   color: var(--text-color1);
   border: 1px solid var(--btn-accent);
   text-decoration: none;
+  white-space: nowrap; /* Prevents text from breaking */
 }
 
-.Navigation-Button a:hover {
-  border-color: var(--nav-box-hover);
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-/* Responsive Design for Mobile */
+/* Fix for mobile */
 @media screen and (max-width: 768px) {
   .Navigation-Buttons {
-    width: 100%;
     display: flex;
-    flex-direction: row;
     overflow-x: auto;
     scroll-behavior: smooth;
+    padding-left: 10px;
   }
 
   .Navigation-Button {
     flex: 0 0 auto;
-    min-width: 100px;
+    min-width: 120px; /* Ensures buttons have enough space */
   }
 }
