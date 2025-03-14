@@ -1,8 +1,8 @@
 /* General Body Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--background-color); /* Replace with your original background color variable */
-    color: var(--text-color1); /* Main text color */
+    background-color: var(--bg-accent1); /* Background color from your original theme */
+    color: var(--text-color1); /* Text color from your original theme */
     margin: 0;
     padding: 0;
 }
@@ -92,7 +92,7 @@ body {
     font-size: 14px;
     text-align: center;
     color: var(--text-color1);
-    background-color: var(--secondary-color); /* Dark background for the title box */
+    background-color: var(--bg-accent2); /* Dark background for the title box */
 }
 
 /* Remove button (small "X") */
