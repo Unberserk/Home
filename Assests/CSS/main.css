@@ -5,17 +5,18 @@
 @import url('style.css');
 @import url('theme.css');
 
-/* Global Reset */
+/* Reset & Global Styles */
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  list-style-type: none;
-  text-decoration: none;
-  overflow-x: scroll;
-  -ms-overflow-style: none;
-  overflow: -moz-scrollbars-none;
-  scrollbar-width: none;
+}
+
+body {
+  overflow-x: hidden; /* Prevents the whole page from scrolling horizontally */
+  background: var(--bg-accent1);
+  color: var(--text-color1);
 }
 
 /* Navigation Bar */
@@ -24,272 +25,80 @@
   height: 60px;
   background: var(--bg-accent2);
   display: flex;
-  border-radius: 0 0 25px 25px;
-  overflow-x: auto; /* Allow horizontal scroll */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  padding: 0 10px;
+  overflow: hidden; /* Ensure the nav itself doesn't move */
 }
 
+/* Container for Navigation Buttons */
 .Navigation-Container {
   display: flex;
   align-items: center;
-  flex-direction: row;
   width: 100%;
-  justify-content: space-between;
+  overflow: hidden; /* Prevents overflow from affecting the rest of the page */
 }
 
+/* Logo */
 .Navigation-Image img {
-  margin-top: 5px;
-  height: 36px;
-  padding: 0.5em;
-  padding-left: 1.25em;
+  height: 40px;
+  margin-right: 10px;
 }
 
-.Navigation-Menu {
+/* The Scrollable Navigation Buttons */
+.Navigation-Buttons {
   display: flex;
-  gap: 15px;
-  margin-right: 15px;
+  flex-wrap: nowrap;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none; /* Hides the scrollbar */
+  -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+}
+
+.Navigation-Buttons::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar in Webkit browsers */
+}
+
+/* Individual Navigation Button */
+.Navigation-Button {
+  flex: 0 0 auto;
+  margin: 0 5px;
 }
 
 .Navigation-Button a {
   display: flex;
-  padding: 0.75em;
   align-items: center;
   gap: 5px;
-  color: var(--text-color1);
+  padding: 10px 15px;
   background-color: var(--btn-accent);
   border-radius: var(--btn-rounding);
+  color: var(--text-color1);
   border: 1px solid var(--btn-accent);
+  text-decoration: none;
 }
 
 .Navigation-Button a:hover {
-  border: 1px solid var(--nav-box-hover);
-  transition: 0.75s;
+  border-color: var(--nav-box-hover);
+  transition: 0.3s;
   cursor: pointer;
 }
 
-/* Index Page */
-.Index-Container {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  left: 50%;
-  top: 50%;
-  color: var(--text-color1);
-}
-
-.Index-Container div h1 {
-  font-size: 5em;
-  text-shadow: 0 10px 5px var(--text-shadow);
-}
-
-.Index-SplashText {
-  margin-bottom: 30px;
-  text-shadow: 0 5px 5px var(--text-shadow);
-}
-
-.Index-SplashText:hover {
-  cursor: pointer;
-}
-
-.Index-BottomBar {
-  padding: 0.75em;
-  font-size: 0.5rem;
-  width: 99%;
-  position: absolute;
-  display: flex;
-  bottom: 0;
-  justify-content: center;
-  gap: 10px;
-}
-
-.Index-BottomBar-Text {
-  color: var(--text-color1);
-  text-decoration: underline;
-}
-
-/* Projects/Apps/Others Page */
-.Projects-Frame {
-  z-index: 9999;
-  display: block;
-  height: 100vh;
-  width: 100%;
-}
-
-.Projects-IFrame {
-  height: 100%;
-  width: 100%;
-  border: none;
-}
-
-.Projects-FrameBar {
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 10px;
-  text-align: center;
-  color: var(--text-color1);
-  padding: 0.75em;
-  background: var(--btn-accent2);
-  border-radius: var(--btn-rounding);
-  width: fit-content;
-  right: 0;
-  height: fit-content;
-  position: absolute;
-  margin: 15px 15px 0 0;
-  font-size: 20px;
-  box-shadow: 0 0 10px var(--btn-box-shadow);
-}
-
-.Projects-FrameBar:hover {
-  cursor: pointer;
-}
-
-.Projects-Container {
-  padding: 2.5em;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 35px;
-  justify-content: center;
-}
-
-.Projects-Project {
-  animation: zoom-in-fade 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-  border-radius: var(--btn-rounding);
-  padding: 0.75em;
-  height: fit-content;
-  width: 12.5em;
-  background-color: var(--btn-accent);
-  color: var(--text-color1);
-  transition: 0.75s;
-  box-shadow: 0 0 10px 5px var(--btn-box-shadow);
-}
-
-.Projects-Project:hover {
-  scale: 1.1;
-  transition: 0.75s;
-  cursor: pointer;
-}
-
-.Projects-Container img {
-  border-radius: var(--btn-rounding);
-  height: 100px;
-  width: 100px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 5px;
-}
-
-.Projects-Container h1 {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  text-align: center;
-  font-size: large;
-  color: var(--text-color1);
-}
-
-/* Settings Page */
-.Settings-Header {
-  margin-top: 25px;
-  color: var(--text-color1);
-  animation: zoom-in-fade 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.Settings-Container {
-  padding: 0.5em;
-  height: fit-content;
-  animation: zoom-in-fade 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.Settings-TextInput {
-  background-color: var(--btn-accent);
-  box-shadow: 0 0 10px 5px var(--btn-box-shadow);
-  border-radius: var(--btn-rounding);
-  padding: 0.8em;
-  color: var(--text-color1);
-  border: none;
-  margin: 5px 10px;
-}
-
-/* Animations */
-@keyframes shake {
-  0% {
-    transform: translate(1px, 1px) rotate(0deg);
-  }
-  10% {
-    transform: translate(-1px, -2px) rotate(-1deg);
-  }
-  20% {
-    transform: translate(-3px, 0px) rotate(1deg);
-  }
-  30% {
-    transform: translate(3px, 2px) rotate(0deg);
-  }
-  40% {
-    transform: translate(1px, -1px) rotate(1deg);
-  }
-  50% {
-    transform: translate(-1px, 2px) rotate(-1deg);
-  }
-  60% {
-    transform: translate(-3px, 1px) rotate(0deg);
-  }
-  70% {
-    transform: translate(3px, 1px) rotate(-1deg);
-  }
-  80% {
-    transform: translate(-1px, -1px) rotate(1deg);
-  }
-  90% {
-    transform: translate(1px, 2px) rotate(0deg);
-  }
-  100% {
-    transform: translate(1px, -2px) rotate(-1deg);
-  }
-}
-
-@keyframes zoom-in-fade {
-  0% {
-    scale: 0;
-    opacity: 0;
-  }
-  100% {
-    scale: 1;
-    opacity: 1;
-  }
-}
-
-/* Important */
-.hidden {
-  display: none !important;
-}
-
-/* Responsive Layout for Mobile */
+/* Responsive Design for Mobile */
 @media screen and (max-width: 768px) {
-  .Navigation-Menu {
+  .Navigation-Buttons {
+    width: 100%;
+    display: flex;
     flex-direction: row;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    padding-bottom: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
   }
 
   .Navigation-Button {
+    flex: 0 0 auto;
     min-width: 100px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .Navigation-Button a {
-    padding: 0.75em 1em;
-  }
-
-  .Navigation-Container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .Navigation-Menu {
-    gap: 10px;
-    margin-top: 10px;
   }
 }
