@@ -1,125 +1,14 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background: var(--bg-accent1);
-    color: var(--text-color1);
-    margin: 0;
-    padding: 0;
-}
-
-/* Navigation Bar */
-.Navigation {
-    background: var(--bg-accent2);
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-.Navigation-Container {
-    display: flex;
-    align-items: center;
-    width: 90%;
-    max-width: 1200px;
-}
-
-.Navigation-Image img {
-    height: 40px;
-}
-
-.Navigation-Button {
-    list-style: none;
-    display: inline-block;
-    margin: 0 10px;
-}
-
-.Navigation-Button a {
-    color: var(--text-color1);
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.Navigation-Button i {
-    margin-right: 5px;
-}
-
-/* Link Input Section */
-.link-container {
-    text-align: center;
-    margin: 20px auto;
-    max-width: 600px;
-}
-
-#linkInput {
-    width: 70%;
-    padding: 10px;
-    border: 1px solid var(--btn-accent);
-    border-radius: var(--btn-rounding);
-    background: var(--bg-accent2);
-    color: var(--text-color1);
-    outline: none;
-}
-
-#addButton {
-    padding: 10px 15px;
-    background: var(--btn-accent);
-    color: var(--text-color1);
-    border: none;
-    border-radius: var(--btn-rounding);
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#addButton:hover {
-    background: var(--btn-accent2);
-}
-
-/* Links Display */
-#linksContainer {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.link-item {
-    display: flex;
-    align-items: center;
-    background: var(--bg-accent2);
-    padding: 10px;
-    border-radius: var(--btn-rounding);
-    width: 80%;
-    max-width: 500px;
-    margin: 10px 0;
-    box-shadow: 0 2px 5px var(--btn-box-shadow);
-    position: relative;
-}
-
-.link-item img {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    border-radius: 4px;
-}
-
-.link-item a {
-    flex: 1;
-    color: var(--text-color1);
-    text-decoration: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .remove-button {
-    background: red;
+    background-color: red;
     color: white;
     border: none;
+    border-radius: 50%;
     padding: 5px 10px;
-    border-radius: var(--btn-rounding);
     cursor: pointer;
-    transition: 0.3s;
+    font-size: 14px;
+    margin-left: 10px;
 }
 
 .remove-button:hover {
-    background: darkred;
+    background-color: darkred;
 }
