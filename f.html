@@ -3,197 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berserk</title>
+    <title>Berserk - Links</title>
     <link rel="icon" type="image/png" href="./Assests/Imgs/Logo.png">
     <link rel="stylesheet" type="text/css" href="./Assests/CSS/main.css">
     <link rel="stylesheet" type="text/css" href="./Assests/CSS/f.css">
     <link rel="stylesheet" type="text/css" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <style>
-        /* Original Theme Styling */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: var(--background-color); /* Ensure the background color stays as per original theme */
-            color: var(--text-color1);
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Navigation Styling */
-        .Navigation {
-            background-color: var(--primary-color);
-            color: var(--text-color1);
-            padding: 10px;
-        }
-
-        .Navigation-Container ul {
-            display: flex;
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .Navigation-Button {
-            margin-right: 20px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .Navigation-Button a {
-            color: var(--text-color1);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .Navigation-Button i {
-            margin-right: 10px;
-        }
-
-        /* Input fields and Add Button */
-        .Settings-TextInput {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            color: var(--text-color1);
-        }
-
-        #addButton {
-            padding: 10px 20px;
-            background-color: var(--button-color);
-            color: var(--text-color1);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #addButton:hover {
-            background-color: var(--button-hover-color);
-        }
-
-        /* Links container and link items */
-        .links-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .link-item {
-            width: 150px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .link-image {
-            width: 100%;
-            height: 100px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .link-name {
-            padding: 10px;
-            font-size: 14px;
-            text-align: center;
-            color: var(--text-color1);
-            background-color: var(--secondary-color); /* Dark background for the title box */
-        }
-
-        /* Remove button (small "X") */
-        .remove-button {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 20px;
-            height: 20px;
-            background-color: white;
-            border: none;
-            border-radius: 50%;
-            text-align: center;
-            font-size: 14px;
-            cursor: pointer;
-            color: #333;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .remove-button:hover {
-            background-color: #f44336;
-            color: #fff;
-        }
-    </style>
 </head>
-<body>
-
+<body class="default">
+    
+    <!-- Navigation -->
     <nav class="Navigation">
         <div class="Navigation-Container">
             <a class="Navigation-Image" href="./"><img src="./Assests/Imgs/Logo.png" alt="Logo"></a>
             <ul>
                 <li class="Navigation-Button"><a href="./"><i class="las la-home"></i><p>Home</p></a></li>
                 <li class="Navigation-Button"><a href="./g.html"><i class="las la-file"></i><p>Projects</p></a></li>
-                <li class="Navigation-Button"><a href="./u.html"><i class="las la-file"></i><p>Cinema</p></a></li>
-                <li class="Navigation-Button"><a href="./d.html"><i class="las la-file"></i><p>Downloads</p></a></li>
-                <li class="Navigation-Button"><a href="./f.html"><i class="las la-file"></i><p>Links</p></a></li>
+                <li class="Navigation-Button"><a href="./u.html"><i class="las la-film"></i><p>Cinema</p></a></li>
+                <li class="Navigation-Button"><a href="./d.html"><i class="las la-download"></i><p>Downloads</p></a></li>
+                <li class="Navigation-Button"><a href="./f.html"><i class="las la-link"></i><p>Links</p></a></li>
                 <li class="Navigation-Button"><a href="./e.html"><i class="las la-hourglass-half"></i><p>Emulator</p></a></li>
                 <li class="Navigation-Button"><a href="./settings.html"><i class="las la-cog"></i><p>Settings</p></a></li>
             </ul>
         </div>
     </nav>
-
-    <div style="padding: 20px;">
-        <input type="text" id="linkName" class="Settings-TextInput" placeholder="Enter the title">
-        <input type="text" id="linkInput" class="Settings-TextInput" placeholder="Enter the link">
-        <input type="file" id="linkImage" class="Settings-TextInput">
-        <button id="addButton">Add Link</button>
-
-        <div class="links-container" id="linksContainer">
-            <!-- Links will be appended here dynamically -->
-        </div>
+    
+    <!-- Add Link Section -->
+    <div class="add-link-container">
+        <center>
+            <h1 style="color: var(--text-color1); margin-top: 25px;">Add Links</h1>
+            <input type="text" class="Settings-TextInput" id="titleInput" placeholder="Enter Title">
+            <input type="url" class="Settings-TextInput" id="urlInput" placeholder="Enter URL">
+            <input type="file" id="fileInput">
+            <button id="addButton">Add Link</button>
+        </center>
     </div>
 
-    <script>
-        const addButton = document.getElementById('addButton');
-        const linkNameInput = document.getElementById('linkName');
-        const linkInput = document.getElementById('linkInput');
-        const linkImageInput = document.getElementById('linkImage');
-        const linksContainer = document.getElementById('linksContainer');
+    <!-- Links Container -->
+    <div class="links-container" id="linksContainer"></div>
 
-        addButton.addEventListener('click', () => {
-            const linkName = linkNameInput.value;
-            const link = linkInput.value;
-            const linkImage = linkImageInput.files[0];
+    <!-- Hidden Template for New Link -->
+    <template id="linkTemplate">
+        <div class="link-item">
+            <div class="link-image" style="background-image: url('');"></div>
+            <div class="link-name"></div>
+            <button class="remove-button">X</button>
+        </div>
+    </template>
 
-            if (!linkName || !link || !linkImage) {
-                alert("Please fill in all fields!");
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const linkItem = document.createElement('div');
-                linkItem.classList.add('link-item');
-                linkItem.innerHTML = `
-                    <a href="${link}" target="_blank">
-                        <div class="link-image" style="background-image: url(${reader.result});"></div>
-                        <div class="link-name">${linkName}</div>
-                    </a>
-                    <button class="remove-button" onclick="removeLink(this)">X</button>
-                `;
-                linksContainer.appendChild(linkItem);
-            };
-            reader.readAsDataURL(linkImage);
-        });
-
-        function removeLink(button) {
-            const linkItem = button.parentElement;
-            linksContainer.removeChild(linkItem);
-        }
-    </script>
+    <script src="./Assests/JS/f.js"></script>
 </body>
 </html>
