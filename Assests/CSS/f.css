@@ -1,102 +1,93 @@
-/* Apply existing Navigation-Button styles to new buttons */
-.Navigation-Button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    background-color: var(--primary-color); /* Change according to your theme */
-    color: var(--text-color1);
-    font-size: 16px;
-    cursor: pointer;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.Navigation {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+}
+
+.Navigation-Container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Navigation-Button a {
+    color: white;
     text-decoration: none;
+    padding: 10px;
+    font-size: 18px;
 }
 
-.Navigation-Button:hover {
-    background-color: var(--hover-color); /* Set hover color */
+.Navigation-Button a:hover {
+    background-color: #444;
 }
 
-/* Input fields styling (keeping consistency with your theme) */
-.input-field {
+.iframe-container {
+    position: relative;
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid var(--border-color); /* You can change the border color */
-    border-radius: 5px;
-    background-color: var(--input-bg-color); /* Background for input */
-    color: var(--text-color1); /* Set text color */
+    height: 80vh; /* Adjust as needed */
+    margin-top: 20px;
 }
 
-.input-file {
-    padding: 10px;
-    border: 1px solid var(--border-color); /* Customize */
-    background-color: var(--input-bg-color);
-    color: var(--text-color1);
-}
-
-.add-link-btn {
-    display: inline-block;
+.back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     padding: 10px 20px;
-    margin: 10px 0;
-    background-color: var(--primary-color); /* Same color as the original button */
-    color: var(--text-color1);
-    font-size: 16px;
-    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
+    border: none;
     cursor: pointer;
+    z-index: 1;
 }
 
-.add-link-btn:hover {
-    background-color: var(--hover-color); /* Hover effect */
+.back-button:hover {
+    background-color: #666;
 }
 
-.link-container {
+.Links-Container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-.link-container-item {
-    background-color: var(--box-bg-color); /* Set the background for link boxes */
+.Link-Item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    margin: 10px;
+    cursor: pointer;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    width: 200px;
     overflow: hidden;
-    position: relative;
+    transition: all 0.3s ease;
+    background-color: #fff;
 }
 
-.link-box {
-    display: block;
-    width: 100%;
-    text-align: center;
-    color: var(--text-color1);
+.Link-Item:hover {
+    background-color: #f5f5f5;
+    transform: scale(1.05);
 }
 
-.link-image {
+.site-image {
     width: 100%;
-    height: 120px;
+    height: 100px;
     object-fit: cover;
 }
 
-.link-title {
-    width: 100%;
-    padding: 5px;
-    border: none;
-    background-color: var(--box-bg-color); /* Match box color */
+.site-title {
     text-align: center;
-    font-size: 14px;
-    color: var(--text-color1);
-}
-
-.remove-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: var(--remove-btn-bg);
-    color: var(--remove-btn-color);
-    font-size: 14px;
-    padding: 5px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.remove-btn:hover {
-    background-color: var(--remove-btn-hover);
+    padding: 10px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+    width: 100%;
 }
