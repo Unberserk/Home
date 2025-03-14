@@ -11,15 +11,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fetchTitle(url, callback) {
-        fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`)
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-                const title = doc.querySelector("title")?.innerText || url;
-                callback(title);
-            })
-            .catch(() => callback(url)); // Fallback to URL if fetch fails
+        setTimeout(() => { // 5-second delay
+            fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, "text/html");
+                    const title = doc.querySelector("title")?.innerText || url;
+                    callback(title);
+                })
+                .catch(() => callback(url)); // Fallback to URL if fetch fails
+        }, 5000); // Delay for 5 seconds
     }
 
     function addLink(url) {
