@@ -1,64 +1,69 @@
-// Adding links dynamically
-const linksContainer = document.getElementById("links-container");
-const addLinkButton = document.getElementById("add-link-button");
-const linkInput = document.getElementById("link-input");
-const titleInput = document.getElementById("title-input");
-const imageInput = document.getElementById("image-input");
+function addLink() {
+    const linkContainer = document.getElementById('link-container');
+    const linkInput = document.getElementById('link-input');
+    const titleInput = document.getElementById('title-input');
+    const imageInput = document.getElementById('image-input');
 
-// Function to add a new link
-addLinkButton.addEventListener("click", () => {
-    const linkUrl = linkInput.value.trim();
-    const title = titleInput.value.trim();
-    const imageUrl = imageInput.files[0] ? URL.createObjectURL(imageInput.files[0]) : "";
+    // Create a new link container with image, title, and remove button
+    const newLink = document.createElement('div');
+    newLink.classList.add('link-container-item');
 
-    // Check if the URL and title are provided
-    if (linkUrl && title) {
-        const linkBox = document.createElement("div");
-        linkBox.classList.add("link-box");
+    // Get the URL and ensure it is absolute
+    let url = linkInput.value.trim();
 
-        // Add image if available
-        if (imageUrl) {
-            const linkImage = document.createElement("img");
-            linkImage.src = imageUrl;
-            linkImage.alt = title;
-            linkBox.appendChild(linkImage);
-        }
-
-        // Add title and make the entire box clickable
-        const linkTitle = document.createElement("p");
-        linkTitle.textContent = title;
-        linkBox.appendChild(linkTitle);
-
-        // Make the whole link box clickable to open the URL in the iframe
-        linkBox.addEventListener("click", () => {
-            const iframe = document.getElementById("site-frame");
-            iframe.src = linkUrl; // Set the iframe source to the selected link
-            document.getElementById("site-frame-container").classList.remove("hidden"); // Show the iframe container
-        });
-
-        // Create a remove button (a white X in a grey circle)
-        const removeButton = document.createElement("button");
-        removeButton.classList.add("remove-button");
-        removeButton.innerHTML = "&times;";
-        removeButton.addEventListener("click", () => {
-            linksContainer.removeChild(linkBox); // Remove the link box
-        });
-
-        linkBox.appendChild(removeButton);
-
-        // Append the new link box to the links container
-        linksContainer.appendChild(linkBox);
-
-        // Clear inputs after adding the link
-        linkInput.value = '';
-        titleInput.value = '';
-        imageInput.value = '';
-    } else {
-        alert("Please provide both a title and a valid link.");
+    // If the URL does not start with http:// or https://, add https://
+    if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url; // Prefix with https:// if it's missing
     }
-});
 
-// Back button functionality
-function goBack() {
-    document.getElementById("site-frame-container").classList.add("hidden"); // Hide the iframe container
+    // Create a link that will redirect to the URL
+    const linkBox = document.createElement('a');
+    linkBox.classList.add('link-box');
+    linkBox.setAttribute('href', url); // Link the URL to the anchor tag
+    linkBox.setAttribute('target', '_blank'); // Open link in a new tab
+    linkBox.style.display = "block"; // Make sure the link takes up the whole block
+
+    // Create a local image preview
+    const img = document.createElement('img');
+    img.classList.add('link-image');
+    
+    // Check if an image is selected
+    if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            img.src = e.target.result; // Set the image preview
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+    }
+
+    const title = document.createElement('input');
+    title.type = 'text';
+    title.classList.add('link-title');
+    title.value = titleInput.value || 'Unnamed Link'; // Use the input title or a default one
+
+    const removeBtn = document.createElement('button');
+    removeBtn.classList.add('remove-btn');
+    removeBtn.textContent = 'X';
+
+    // Remove the link when the remove button is clicked
+    removeBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent triggering the link redirect when removing
+        newLink.remove();
+    });
+
+    // Append the image, title, and remove button inside the link box
+    linkBox.appendChild(img);
+    linkBox.appendChild(title);
+    linkBox.appendChild(removeBtn);
+
+    // Append the link box to the link container
+    newLink.appendChild(linkBox);
+
+    // Add the new link to the page
+    linkContainer.appendChild(newLink);
+
+    // Clear the input fields
+    linkInput.value = '';
+    titleInput.value = '';
+    imageInput.value = '';
 }
