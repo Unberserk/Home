@@ -8,16 +8,9 @@
     top: 0;
     left: 0;
     right: 0;
-    overflow-x: auto; /* Enables horizontal scrolling */
+    overflow: visible; /* Ensure no scrolling behavior */
     white-space: nowrap; /* Prevents wrapping of buttons */
-    scrollbar-width: none; /* Hides scrollbar on Firefox */
-    -ms-overflow-style: none; /* Hides scrollbar on IE/Edge */
     z-index: 999; /* Keeps it above other content */
-}
-
-/* Hides scrollbar for Webkit browsers (Chrome, Safari) */
-#urlBar::-webkit-scrollbar {
-    display: none;
 }
 
 /* Input field inside the URL Bar */
@@ -27,26 +20,22 @@
     font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     min-width: 10vw;
     height: 37px;
-    width: calc(80vw + 20%);
+    width: 80%; /* Adjust width to be a percentage for normal layout */
     margin: 0 17px;
     padding-left: 36px;
     padding-right: 20px;
-    margin-right: 10px;
-    margin-left: 13px;
     font-weight: 500;
     font-size: 14px;
     border: 0.5px solid rgb(38,53,65);
     border-radius: 10px;
 }
 
-/* Ensures all buttons are in a row and not wrapping */
+/* Styling for buttons in the URL bar */
 #urlBar .btn-container {
     display: flex;
-    flex-wrap: nowrap;
     gap: 10px; /* Space between buttons */
 }
 
-/* Styling for buttons in the URL bar */
 #urlBar button {
     color: rgb(140,148,160);
     display: inline-flex;
@@ -61,7 +50,6 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    flex-shrink: 0; /* Prevents buttons from shrinking */
 }
 
 /* Hover effect for the buttons */
