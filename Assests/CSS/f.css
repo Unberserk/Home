@@ -1,0 +1,116 @@
+/* General Styles */
+a:hover {
+  cursor: pointer;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  list-style-type: none;
+  text-decoration: none;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
+}
+h1 {
+  font-family: Calibri, "Trebuchet MS", sans-serif;
+}
+.Normal-Button {
+  margin: 5px 10px;
+  background-color: var(--btn-accent);
+  border: 0;
+  color: var(--text-color1);
+  padding: 0.8em;
+  border-radius: var(--btn-rounding);
+  box-shadow: 0 0 10px 5px var(--btn-box-shadow);
+  transition: 0.75s;
+}
+.Normal-Button:hover {
+  cursor: pointer;
+  transition: 0.75s;
+  scale: 1.1;
+}
+.Normal-Button img {
+  width: 24px;
+  align-items: center;
+  display: flex;
+}
+
+/* Container for the grid of added links */
+#site-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Style for each site item */
+.site-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  background-color: var(--btn-accent);
+  border-radius: var(--btn-rounding);
+  padding: 10px;
+  box-shadow: 0 0 10px 5px var(--btn-box-shadow);
+  transition: 0.75s;
+}
+.site-item:hover {
+  scale: 1.1;
+  transition: 0.75s;
+  cursor: pointer;
+}
+
+.site-thumbnail {
+  width: 100%;
+  border-radius: var(--btn-rounding);
+  margin-bottom: 10px;
+}
+
+.site-title {
+  text-align: center;
+  color: var(--text-color1);
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+
+/* Input field and button for adding custom links */
+#link-input {
+  padding: 10px;
+  font-size: 16px;
+  margin: 20px 10px 20px 10px;
+  border-radius: var(--btn-rounding);
+  border: 1px solid var(--btn-accent);
+  width: 300px;
+}
+
+#add-link-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: var(--btn-accent);
+  color: var(--text-color1);
+  border-radius: var(--btn-rounding);
+  border: 1px solid var(--btn-accent);
+  cursor: pointer;
+}
+
+#add-link-button:hover {
+  background-color: var(--btn-accent2);
+}
+
+/* Error message style */
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+}
