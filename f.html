@@ -12,7 +12,7 @@
         /* General Styling */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            background-color: #f7f7f7; /* Keep the page background light */
             color: #333;
             padding: 20px;
         }
@@ -20,10 +20,7 @@
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background-color: #fff;
             padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
         }
 
         /* Input fields styling */
@@ -78,11 +75,14 @@
             background-position: center;
         }
 
+        /* Title box: Dark background for the title */
         .link-name {
             padding: 10px;
             font-size: 14px;
             text-align: center;
-            color: #333;
+            color: #fff; /* White text on the dark background */
+            background-color: #333; /* Dark background for the title box */
+            border-top: 2px solid #444; /* Subtle border at the top */
         }
 
         /* Remove button (small "X") */
@@ -126,69 +126,53 @@
     </nav>
 
     <div class="container">
-        <!-- Input fields for adding link and title -->
         <input type="text" id="linkName" class="Settings-TextInput" placeholder="Enter the title">
         <input type="text" id="linkInput" class="Settings-TextInput" placeholder="Enter the link">
-        <input type="file" id="imageInput" class="Settings-TextInput" accept="image/*">
+        <input type="file" id="linkImage" class="Settings-TextInput">
         <button id="addButton">Add Link</button>
 
-        <!-- Links container to display the added links -->
-        <div id="linksContainer" class="links-container">
-            <!-- The links will be added here -->
+        <div class="links-container" id="linksContainer">
+            <!-- Links will be appended here dynamically -->
         </div>
     </div>
 
     <script>
-        document.getElementById('addButton').addEventListener('click', function() {
-            var linkInput = document.getElementById('linkInput').value;
-            var linkName = document.getElementById('linkName').value;
-            var imageInput = document.getElementById('imageInput').files[0];
+        const addButton = document.getElementById('addButton');
+        const linkNameInput = document.getElementById('linkName');
+        const linkInput = document.getElementById('linkInput');
+        const linkImageInput = document.getElementById('linkImage');
+        const linksContainer = document.getElementById('linksContainer');
 
-            // Only proceed if all fields are filled
-            if (linkInput && linkName && imageInput) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    // Create the link item container
-                    var linkItem = document.createElement('div');
-                    linkItem.classList.add('link-item');
+        addButton.addEventListener('click', () => {
+            const linkName = linkNameInput.value;
+            const link = linkInput.value;
+            const linkImage = linkImageInput.files[0];
 
-                    // Image as background for YouTube-like preview
-                    var linkImage = document.createElement('div');
-                    linkImage.classList.add('link-image');
-                    linkImage.style.backgroundImage = 'url(' + e.target.result + ')';
-
-                    // Link as the box's redirect
-                    linkItem.onclick = function() {
-                        window.open(linkInput, '_blank');
-                    };
-
-                    // Title of the link below the image
-                    var linkNameElement = document.createElement('span');
-                    linkNameElement.classList.add('link-name');
-                    linkNameElement.textContent = linkName;
-
-                    // Create remove button (a small "X" circle)
-                    var removeButton = document.createElement('button');
-                    removeButton.classList.add('remove-button');
-                    removeButton.textContent = 'X';
-                    removeButton.onclick = function() {
-                        linkItem.remove();
-                    };
-
-                    // Append everything to the link item
-                    linkItem.appendChild(linkImage);
-                    linkItem.appendChild(linkNameElement);
-                    linkItem.appendChild(removeButton);
-
-                    // Add link item to the links container
-                    document.getElementById('linksContainer').appendChild(linkItem);
-                };
-
-                reader.readAsDataURL(imageInput);
+            if (!linkName || !link || !linkImage) {
+                alert("Please fill in all fields!");
+                return;
             }
-        });
-    </script>
 
-    <script src="./Assests/JS/f.js"></script>
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const linkItem = document.createElement('div');
+                linkItem.classList.add('link-item');
+                linkItem.innerHTML = `
+                    <a href="${link}" target="_blank">
+                        <div class="link-image" style="background-image: url(${reader.result});"></div>
+                        <div class="link-name">${linkName}</div>
+                    </a>
+                    <button class="remove-button" onclick="removeLink(this)">X</button>
+                `;
+                linksContainer.appendChild(linkItem);
+            };
+            reader.readAsDataURL(linkImage);
+        });
+
+        function removeLink(button) {
+            const linkItem = button.parentElement;
+            linksContainer.removeChild(linkItem);
+        }
+    </script>
 </body>
 </html>
