@@ -1,21 +1,22 @@
-/* General Body Styles */
+/* Body and general page layout */
 body {
-    font-family: Arial, sans-serif;
-    background-color: var(--bg-accent1); /* Background color from your original theme */
-    color: var(--text-color1); /* Text color from your original theme */
+    background-color: #1f1f1f; /* Dark background for body */
+    color: #ffffff; /* White text */
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-/* Navigation Styling */
+/* Navigation bar */
 .Navigation {
-    background-color: var(--primary-color); /* Main navigation bar color */
-    color: var(--text-color1);
-    padding: 10px;
+    background-color: #333; /* Dark navigation bar */
+    color: #fff;
+    padding: 10px 0;
 }
 
 .Navigation-Container ul {
     display: flex;
+    justify-content: center;
     list-style-type: none;
     padding: 0;
 }
@@ -28,7 +29,7 @@ body {
 }
 
 .Navigation-Button a {
-    color: var(--text-color1);
+    color: #fff;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -38,48 +39,54 @@ body {
     margin-right: 10px;
 }
 
-/* Input fields and Add Button */
+/* Title input and button */
 .Settings-TextInput {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #555;
     border-radius: 5px;
     font-size: 14px;
-    color: var(--text-color1);
+    color: #fff;
+    background-color: #333;
 }
 
 #addButton {
     padding: 10px 20px;
-    background-color: var(--button-color); /* Use your original button color */
-    color: var(--text-color1);
+    background-color: #4CAF50;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 #addButton:hover {
-    background-color: var(--button-hover-color); /* Hover color for the button */
+    background-color: #45a049;
 }
 
-/* Links container and link items */
+/* Container for all the links */
 .links-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
     margin-top: 20px;
 }
 
+/* Each individual link box */
 .link-item {
     width: 150px;
-    background-color: #fff;
+    background-color: #333; /* Dark background for each link box */
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     overflow: hidden;
     position: relative;
+    text-align: center;
 }
 
+/* Link box image */
 .link-image {
     width: 100%;
     height: 100px;
@@ -87,15 +94,15 @@ body {
     background-position: center;
 }
 
+/* Link title (text) */
 .link-name {
     padding: 10px;
     font-size: 14px;
-    text-align: center;
-    color: var(--text-color1);
-    background-color: var(--bg-accent2); /* Dark background for the title box */
+    color: #fff;
+    background-color: #444; /* Slightly lighter dark background for title */
 }
 
-/* Remove button (small "X") */
+/* Remove button (small "X" in circle) */
 .remove-button {
     position: absolute;
     top: 5px;
@@ -109,10 +116,9 @@ body {
     font-size: 14px;
     cursor: pointer;
     color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .remove-button:hover {
-    background-color: #f44336;
+    background-color: #f44336; /* Red background for hover */
     color: #fff;
 }
