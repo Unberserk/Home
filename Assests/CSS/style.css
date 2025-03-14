@@ -1,12 +1,17 @@
-/* GENERAL STYLES */
+/* ======= GENERAL STYLING ======= */
 body {
+    background: var(--bg-accent1);
+    color: var(--text-color1);
     font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Prevents full page scrolling */
+    overflow: hidden; /* Prevents page scrolling */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* NAVIGATION BAR */
+/* ======= NAVIGATION BAR ======= */
 .Navigation {
     width: 100%;
     background-color: var(--bg-accent1);
@@ -14,6 +19,7 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
+    overflow: hidden;
 }
 
 /* NAVIGATION CONTAINER */
@@ -22,42 +28,31 @@ body {
     align-items: center;
     justify-content: flex-start;
     padding: 10px;
-    overflow: hidden; /* Prevents entire page scrolling */
+    overflow-x: auto; /* Allows horizontal scrolling */
     white-space: nowrap;
+    scrollbar-width: none; /* Hides scrollbar on Firefox */
+    -ms-overflow-style: none; /* Hides scrollbar on IE/Edge */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    width: 100%;
 }
 
-/* LOGO */
-.Navigation-Image img {
-    height: 40px;
-    margin-right: 10px;
+/* Hide scrollbar for Chrome/Safari */
+.Navigation-Container::-webkit-scrollbar {
+    display: none;
 }
 
 /* NAVIGATION BUTTONS */
-.Navigation-Buttons {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    -ms-overflow-style: none; /* Hide scrollbar in IE */
-    max-width: 100%; /* Ensures it doesn’t stretch */
-    white-space: nowrap;
-    padding-bottom: 5px;
-}
-
-.Navigation-Buttons::-webkit-scrollbar {
-    display: none; /* Hide scrollbar in Chrome/Safari */
-}
-
-/* NAVIGATION BUTTON STYLES */
 .Navigation-Button {
     flex: 0 0 auto;
-    padding: 10px;
+    padding: 10px 15px;
+    margin-right: 10px;
     background-color: var(--btn-accent);
     border-radius: var(--btn-rounding);
     box-shadow: 0 2px 5px var(--btn-box-shadow);
     transition: background 0.3s;
 }
 
+/* BUTTONS INSIDE NAV */
 .Navigation-Button a {
     text-decoration: none;
     color: var(--text-color1);
@@ -68,4 +63,31 @@ body {
 
 .Navigation-Button i {
     font-size: 20px;
+}
+
+/* ======= CONTENT STYLING ======= */
+.Index-Container {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.Index-BottomBar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: var(--bg-accent1);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+/* SMOOTHER SCROLL ONLY ON MOBILE */
+@media (max-width: 768px) {
+    .Navigation-Container {
+        scroll-behavior: smooth; /* Smooth scrolling for mobile */
+        -webkit-overflow-scrolling: touch; /* Better iOS scrolling */
+    }
 }
