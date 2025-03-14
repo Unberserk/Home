@@ -18,6 +18,7 @@ body {
     background-color: var(--bg-accent1);
     z-index: 1000;
     overflow: hidden; /* Prevent whole page scroll */
+    padding: 10px 0;
 }
 
 /* SCROLLABLE NAVIGATION CONTAINER (LEFT TO RIGHT SCROLLING) */
@@ -68,6 +69,8 @@ body {
     justify-content: center;
     flex-direction: column;
     gap: 10px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: calc(100vh - 60px); /* Adjust to not overlap the navbar */
 }
 
 /* Additional Button Styling */
