@@ -3,45 +3,37 @@ body {
     background: var(--bg-accent1);
     color: var(--text-color1);
     font-family: 'Poppins', sans-serif;
-    overflow: hidden; /* Prevents full-page scrolling */
-    height: 100vh;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full screen height */
+    overflow-x: hidden; /* Prevent horizontal scroll on the page */
 }
 
 /* ======= NAVIGATION BAR ======= */
 .Navigation {
-    width: 100%;
-    background-color: var(--bg-accent1);
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
+    background-color: var(--bg-accent1);
     z-index: 1000;
     overflow: hidden;
 }
 
-/* NAVIGATION CONTAINER (FULLY SCROLLABLE) */
+/* SCROLLABLE NAVIGATION CONTAINER */
 .Navigation-Container {
     display: flex;
-    align-items: center;
-    overflow-x: auto; /* Enables horizontal scrolling */
-    white-space: nowrap;
-    scrollbar-width: none; /* Hides scrollbar for Firefox */
-    -ms-overflow-style: none; /* Hides scrollbar for IE/Edge */
-    scroll-behavior: smooth; /* Smooth scrolling */
-    width: 100%;
+    justify-content: flex-start;
     padding: 10px 0;
+    gap: 20px; /* Space between buttons */
+    overflow-x: auto; /* Allow scrolling horizontally */
+    white-space: nowrap;
+    scroll-behavior: smooth; /* Smooth scroll for the buttons */
+    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
 }
 
-/* Ensure all buttons fit inside the scrollable container */
-.Navigation-Container ul {
-    display: flex;
-    gap: 10px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    min-width: max-content; /* Ensures the full list is scrollable */
-}
-
-/* Hide scrollbar for Chrome/Safari */
+/* HIDE SCROLLBAR FOR MOBILE */
 .Navigation-Container::-webkit-scrollbar {
     display: none;
 }
@@ -56,7 +48,6 @@ body {
     transition: background 0.3s;
 }
 
-/* NAVIGATION LINKS */
 .Navigation-Button a {
     text-decoration: none;
     color: var(--text-color1);
@@ -65,18 +56,15 @@ body {
     gap: 5px;
 }
 
-/* ICONS INSIDE NAV */
 .Navigation-Button i {
     font-size: 20px;
 }
 
-/* ======= CONTENT STYLING ======= */
+/* ======= PAGE CONTENT ======= */
 .Index-Container {
     text-align: center;
     width: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    padding-top: 60px; /* Avoid content being hidden behind the navbar */
 }
 
 /* FOOTER BAR */
@@ -90,10 +78,10 @@ body {
     padding: 10px 0;
 }
 
-/* ======= MOBILE OPTIMIZATION ======= */
+/* ======= MOBILE SCROLLING FIXES ======= */
 @media (max-width: 768px) {
+    /* Ensure smooth scrolling for touch devices */
     .Navigation-Container {
-        scroll-behavior: smooth; /* Smooth scrolling for mobile */
-        -webkit-overflow-scrolling: touch; /* Better scrolling on iOS */
+        -webkit-overflow-scrolling: touch; /* Allow smooth scrolling on iOS */
     }
 }
