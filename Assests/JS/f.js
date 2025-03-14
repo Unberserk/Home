@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ====================
   // Custom Link Adding Code using a CORS Proxy
   // ====================
-  
+
   // Function to fetch metadata (title and image) from a URL using AllOrigins proxy
   async function fetchSiteMetadata(url) {
     try {
@@ -19,9 +19,22 @@ document.addEventListener('DOMContentLoaded', function () {
       // Extract the page title
       const title = doc.querySelector('title') ? doc.querySelector('title').innerText : 'No title';
       // Extract the Open Graph image if available
-      const image = doc.querySelector('meta[property="og:image"]')
+      let image = doc.querySelector('meta[property="og:image"]')
                     ? doc.querySelector('meta[property="og:image"]').getAttribute('content')
                     : '';
+      
+      // If the image URL is relative, convert it to absolute using the base URL
+      if (image && !/^https?:\/\//i.test(image)) {
+        try {
+          const base = new URL(url);
+          // If the image starts with a slash, append it to the origin
+          image = image.startsWith('/')
+            ? base.origin + image
+            : base.origin + '/' + image;
+        } catch (e) {
+          console.error("Error converting relative image URL:", e);
+        }
+      }
       
       return {
         title: title,
@@ -33,43 +46,43 @@ document.addEventListener('DOMContentLoaded', function () {
       return null;
     }
   }
-  
+
   // Function to add a custom link based on user input
   async function addCustomLink() {
     const inputField = document.getElementById("link-input");
     const url = inputField.value.trim();
-  
+
     if (!url || !url.startsWith('http')) {
       alert("Please enter a valid URL starting with http:// or https://");
       return;
     }
-  
+
     const siteDetails = await fetchSiteMetadata(url);
     if (siteDetails) {
       const container = document.getElementById("site-grid");
       const siteElement = document.createElement("div");
       siteElement.classList.add("site-item");
-  
+
       siteElement.innerHTML = `
         <a href="${siteDetails.url}" target="_blank">
           <img src="${siteDetails.image}" alt="${siteDetails.title}" class="site-thumbnail">
           <h3 class="site-title">${siteDetails.title}</h3>
         </a>
       `;
-  
+
       container.appendChild(siteElement);
       inputField.value = ""; // Clear the input field after adding
     } else {
       alert("Failed to fetch metadata for this URL.");
     }
   }
-  
+
   // Attach event listener to the "Add Link" button
   const addLinkButton = document.getElementById("add-link-button");
   if (addLinkButton) {
     addLinkButton.addEventListener("click", addCustomLink);
   }
-  
+
   // ====================
   // Projects-Frame Buttons Script
   // ====================
@@ -78,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const fullscreenBtn = document.getElementById('fullscreen');
   const linkBtn = document.getElementById('link');
   const iframe = document.querySelector('.Projects-IFrame');
-  
+
   // Close Button: Hide the projects frame
   if (closeBtn && projectFrame) {
     closeBtn.addEventListener('click', () => {
@@ -86,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
       projectFrame.style.display = 'none';
     });
   }
-  
+
   // Fullscreen Button: Toggle fullscreen mode for the projects frame
   if (fullscreenBtn && projectFrame) {
     fullscreenBtn.addEventListener('click', () => {
@@ -99,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-  
-  // Link Button: Copy the iframe's URL to the clipboard or open it in a new tab
+
+  // Link Button: Copy the iframe's URL to the clipboard (or open it in a new tab)
   if (linkBtn && iframe) {
     linkBtn.addEventListener('click', () => {
       const src = iframe.src;
