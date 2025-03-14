@@ -8,6 +8,105 @@
     <link rel="stylesheet" type="text/css" href="./Assests/CSS/main.css">
     <link rel="stylesheet" type="text/css" href="./Assests/CSS/f.css">
     <link rel="stylesheet" type="text/css" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Input fields styling */
+        .Settings-TextInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+            color: #333;
+        }
+
+        /* Add button */
+        #addButton {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #addButton:hover {
+            background-color: #0056b3;
+        }
+
+        /* Links container */
+        .links-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .link-item {
+            width: 150px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .link-image {
+            width: 100%;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .link-name {
+            padding: 10px;
+            font-size: 14px;
+            text-align: center;
+            color: #333;
+        }
+
+        /* Remove button (small "X") */
+        .remove-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: none;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-button:hover {
+            background-color: #f44336;
+            color: #fff;
+        }
+    </style>
 </head>
 <body class="default">
     
