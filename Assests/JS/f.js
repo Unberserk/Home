@@ -1,54 +1,48 @@
-document.getElementById("addButton").addEventListener("click", function() {
-    const title = document.getElementById("titleInput").value;
-    const url = document.getElementById("urlInput").value;
-    const fileInput = document.getElementById("fileInput").files[0];
-    
-    // Check if title and URL are provided
-    if (!title || !url) {
-        alert("Please enter both a title and a URL.");
-        return;
-    }
-    
-    // Create the link item from the template
-    const linkTemplate = document.getElementById("linkTemplate").content.cloneNode(true);
-    const linkItem = linkTemplate.querySelector(".link-item");
-    
-    // Set the image (if any) and title
-    const imageContainer = linkItem.querySelector(".link-image");
-    const titleContainer = linkItem.querySelector(".link-name");
-    
-    // If an image is selected, set it as the background
-    if (fileInput) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            imageContainer.style.backgroundImage = `url(${e.target.result})`;
-        };
-        reader.readAsDataURL(fileInput);
-    } else {
-        // If no image, set a default background (You can replace it with a default image URL)
-        imageContainer.style.backgroundImage = `url('https://via.placeholder.com/150')`;
-    }
+function addLink() {
+    const linkContainer = document.getElementById('link-container');
+    const linkInput = document.getElementById('link-input');
+    const titleInput = document.getElementById('title-input');
+    const imageInput = document.getElementById('image-input');
 
-    // Set the title text
-    titleContainer.textContent = title;
+    // Create a new link container with image, title, and remove button
+    const newLink = document.createElement('div');
+    newLink.classList.add('link-container-item');
 
-    // Add the click event to redirect when clicked
-    linkItem.addEventListener("click", function() {
-        window.location.href = url;
+    const linkBox = document.createElement('a');
+    linkBox.classList.add('link-box');
+    linkBox.setAttribute('href', linkInput.value); // Link the URL to the anchor tag
+    linkBox.setAttribute('target', '_blank'); // Open link in a new tab
+
+    const img = document.createElement('img');
+    img.classList.add('link-image');
+    img.src = imageInput.value; // Set the image source to the input value
+    img.alt = "Website Image"; // Alt text for accessibility
+
+    const title = document.createElement('input');
+    title.type = 'text';
+    title.classList.add('link-title');
+    title.value = titleInput.value || 'Unnamed Link'; // Use the input title or a default one
+
+    const removeBtn = document.createElement('button');
+    removeBtn.classList.add('remove-btn');
+    removeBtn.textContent = 'X';
+
+    // Remove the link when the remove button is clicked
+    removeBtn.addEventListener('click', () => {
+        newLink.remove();
     });
 
-    // Add the remove button functionality
-    const removeButton = linkItem.querySelector(".remove-button");
-    removeButton.addEventListener("click", function(e) {
-        e.stopPropagation(); // Prevent triggering the link click
-        linkItem.remove();
-    });
+    // Append elements to the new link container
+    linkBox.appendChild(img);
+    linkBox.appendChild(title);
+    linkBox.appendChild(removeBtn);
+    newLink.appendChild(linkBox);
 
-    // Append the new link item to the links container
-    document.getElementById("linksContainer").appendChild(linkItem);
+    // Add the new link to the page
+    linkContainer.appendChild(newLink);
 
-    // Clear input fields after adding the link
-    document.getElementById("titleInput").value = '';
-    document.getElementById("urlInput").value = '';
-    document.getElementById("fileInput").value = '';
-});
+    // Clear the input fields
+    linkInput.value = '';
+    titleInput.value = '';
+    imageInput.value = '';
+}
