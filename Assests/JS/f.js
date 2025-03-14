@@ -8,10 +8,12 @@ function addLink() {
     const newLink = document.createElement('div');
     newLink.classList.add('link-container-item');
 
+    // Create a link that will redirect to the URL
     const linkBox = document.createElement('a');
     linkBox.classList.add('link-box');
     linkBox.setAttribute('href', linkInput.value); // Link the URL to the anchor tag
     linkBox.setAttribute('target', '_blank'); // Open link in a new tab
+    linkBox.style.display = "block"; // Make sure the link takes up the whole block
 
     // Create a local image preview
     const img = document.createElement('img');
@@ -36,14 +38,17 @@ function addLink() {
     removeBtn.textContent = 'X';
 
     // Remove the link when the remove button is clicked
-    removeBtn.addEventListener('click', () => {
+    removeBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent triggering the link redirect when removing
         newLink.remove();
     });
 
-    // Append elements to the new link container
+    // Append the image, title, and remove button inside the link box
     linkBox.appendChild(img);
     linkBox.appendChild(title);
     linkBox.appendChild(removeBtn);
+
+    // Append the link box to the link container
     newLink.appendChild(linkBox);
 
     // Add the new link to the page
