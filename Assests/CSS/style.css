@@ -1,111 +1,28 @@
-/* ======= GENERAL STYLING ======= */
-body {
-    background: var(--bg-accent1);
-    color: var(--text-color1);
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100vh; /* Full screen height */
-    overflow-x: hidden; /* Prevent horizontal scroll on the page */
-}
-
-/* ======= NAVIGATION BAR ======= */
-.Navigation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--bg-accent1);
-    z-index: 1000;
-    padding: 10px 0;
-    box-sizing: border-box;
-}
-
-/* SCROLLABLE NAVIGATION CONTAINER (LEFT TO RIGHT SCROLLING) */
 .Navigation-Container {
     display: flex;
-    flex-wrap: nowrap; /* Prevent wrapping of buttons */
+    flex-wrap: nowrap; /* Prevent wrapping */
     justify-content: flex-start;
-    overflow-x: auto; /* Allow scrolling horizontally */
+    overflow-x: auto; /* Enable horizontal scrolling */
     white-space: nowrap;
-    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
-    scrollbar-width: none; /* Hides scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar on IE/Edge */
+    scrollbar-width: none; /* Hide scrollbar on Firefox */
     padding-left: 15px;
+    width: 100%; /* Make sure it takes full width */
 }
 
-/* HIDE SCROLLBAR FOR MOBILE */
-.Navigation-Container::-webkit-scrollbar {
-    display: none;
+/* Force Navigation-Container to fit all buttons in one row */
+.Navigation-Container ul {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content; /* Allow content to expand */
 }
 
-/* NAVIGATION BUTTONS */
+/* Ensure navigation buttons are displayed in a single row */
 .Navigation-Button {
-    flex: 0 0 auto; /* Prevent buttons from shrinking */
+    flex: 0 0 auto; /* Prevent shrinking */
     padding: 10px 15px;
     background-color: var(--btn-accent);
     border-radius: var(--btn-rounding);
     box-shadow: 0 2px 5px var(--btn-box-shadow);
     transition: background 0.3s;
-}
-
-.Navigation-Button a {
-    text-decoration: none;
-    color: var(--text-color1);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.Navigation-Button i {
-    font-size: 20px;
-}
-
-/* ======= PAGE CONTENT BELOW NAVIGATION ======= */
-.Index-Container {
-    text-align: center;
-    width: 100%;
-    padding-top: 60px; /* Avoid content being hidden behind the navbar */
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: auto; /* Enable vertical scrolling */
-    height: calc(100vh - 60px); /* Adjust to not overlap the navbar */
-}
-
-/* Additional Button Styling */
-.Index-Button {
-    padding: 10px 20px;
-    background-color: var(--btn-accent2);
-    border-radius: var(--btn-rounding);
-    box-shadow: 0 2px 5px var(--btn-box-shadow);
-    transition: background 0.3s ease, transform 0.3s ease;
-    width: 100%; /* Make it full width on mobile */
-    max-width: 300px; /* Limit the width on larger screens */
-}
-
-.Index-Button:hover {
-    background-color: var(--btn-accent);
-    transform: scale(1.05);
-}
-
-.Index-Button a {
-    text-decoration: none;
-    color: var(--text-color1);
-    display: block;
-}
-
-/* ======= MOBILE SCROLLING FIXES ======= */
-@media (max-width: 768px) {
-    /* Ensure smooth scrolling for touch devices */
-    .Navigation-Container {
-        -webkit-overflow-scrolling: touch; /* Allow smooth scrolling on iOS */
-    }
-
-    /* Buttons styled for mobile view */
-    .Index-Button {
-        padding: 15px 20px;
-        font-size: 16px;
-        width: 90%; /* Slightly smaller for mobile */
-    }
 }
