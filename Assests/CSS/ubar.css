@@ -1,3 +1,4 @@
+/* ======= URL Bar Styling ======= */
 #urlBar {
     display: flex;
     align-items: center;
@@ -11,6 +12,7 @@
     white-space: nowrap; /* Prevents wrapping of buttons */
     scrollbar-width: none; /* Hides scrollbar on Firefox */
     -ms-overflow-style: none; /* Hides scrollbar on IE/Edge */
+    z-index: 999; /* Keeps it above other content */
 }
 
 /* Hides scrollbar for Webkit browsers (Chrome, Safari) */
@@ -18,10 +20,11 @@
     display: none;
 }
 
+/* Input field inside the URL Bar */
 #urlBar input {
     color: rgb(140,148,160);
     background-color: transparent;
-    font-family: ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     min-width: 10vw;
     height: 37px;
     width: calc(80vw + 20%);
@@ -36,14 +39,14 @@
     border-radius: 10px;
 }
 
-/* Ensures all buttons are in a row */
+/* Ensures all buttons are in a row and not wrapping */
 #urlBar .btn-container {
     display: flex;
     flex-wrap: nowrap;
     gap: 10px; /* Space between buttons */
 }
 
-/* Styling for navigation buttons */
+/* Styling for buttons in the URL bar */
 #urlBar button {
     color: rgb(140,148,160);
     display: inline-flex;
@@ -61,12 +64,12 @@
     flex-shrink: 0; /* Prevents buttons from shrinking */
 }
 
-/* Button hover effect */
+/* Hover effect for the buttons */
 #urlBar button:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Responsive for mobile */
+/* Mobile View Adjustments */
 @media (max-width: 768px) {
     #urlBar {
         padding: 8px;
