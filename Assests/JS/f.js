@@ -1,3 +1,15 @@
+// Function to load a link into the iframe
+function loadLink(url) {
+    const iframe = document.getElementById('site-frame');
+    iframe.src = url; // Set the iframe source to the selected link
+    document.getElementById('site-frame-container').classList.remove('hidden'); // Show the iframe container
+}
+
+// Function to go back to the previous page
+function goBack() {
+    document.getElementById('site-frame-container').classList.add('hidden'); // Hide iframe container
+}
+
 // Adding links dynamically
 const linksContainer = document.getElementById("links-container");
 const addLinkButton = document.getElementById("add-link-button");
@@ -30,11 +42,7 @@ addLinkButton.addEventListener("click", () => {
         linkBox.appendChild(linkTitle);
 
         // Make the whole link box clickable to open the URL in the iframe
-        linkBox.addEventListener("click", () => {
-            const iframe = document.getElementById("site-frame");
-            iframe.src = linkUrl; // Set the iframe source to the selected link
-            document.getElementById("site-frame-container").classList.remove("hidden"); // Show the iframe container
-        });
+        linkBox.addEventListener("click", () => loadLink(linkUrl));
 
         // Create a remove button (a white X in a grey circle)
         const removeButton = document.createElement("button");
@@ -57,8 +65,3 @@ addLinkButton.addEventListener("click", () => {
         alert("Please provide both a title and a valid link.");
     }
 });
-
-// Back button functionality
-function goBack() {
-    document.getElementById("site-frame-container").classList.add("hidden"); // Hide the iframe container
-}
