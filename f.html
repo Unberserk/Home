@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berserk Links</title>
+    <title>Berserk</title>
     <link rel="icon" type="image/png" href="./Assests/Imgs/Logo.png">
     <link rel="stylesheet" type="text/css" href="./Assests/CSS/main.css">
     <link rel="stylesheet" type="text/css" href="./Assests/CSS/f.css">
@@ -13,7 +13,7 @@
     
     <nav class="Navigation">
         <div class="Navigation-Container">
-            <a class="Navigation-Image" href="./"><img src="./Assests/Imgs/Logo.png"></img></a>
+            <a class="Navigation-Image" href="./"><img src="./Assests/Imgs/Logo.png" alt="Logo"></a>
             <ul>
                 <li class="Navigation-Button"><a href="./"><i class="las la-home"></i><p>Home</p></a></li>
                 <li class="Navigation-Button"><a href="./g.html"><i class="las la-file"></i><p>Projects</p></a></li>
@@ -26,26 +26,69 @@
         </div>
     </nav>
 
-    <div class="hideAfterFullscreen">
-        <center>
-            <h1 style="margin-top: 25px; color: var(--text-color1)">Manage Links</h1>
-            <p style="margin-bottom: 25px;">Add, edit, and remove your links.</p>
-        </center>
-        <hr>
+    <div class="container">
+        <!-- Input fields for adding link and title -->
+        <input type="text" id="linkName" class="Settings-TextInput" placeholder="Enter the title">
+        <input type="text" id="linkInput" class="Settings-TextInput" placeholder="Enter the link">
+        <input type="file" id="imageInput" class="Settings-TextInput" accept="image/*">
+        <button id="addButton">Add Link</button>
 
-        <!-- Input Fields for Link URL and Link Name -->
-        <div style="padding: 2em 0 0 0">
-            <input type="text" id="linkName" class="Settings-TextInput" placeholder="Enter Link Name">
-            <input type="text" id="linkInput" class="Settings-TextInput" placeholder="Enter URL">
-            <input type="file" id="imageInput" class="Settings-TextInput" accept="image/*">
-            <button id="addButton">Add Link</button>
+        <!-- Links container to display the added links -->
+        <div id="linksContainer" class="links-container">
+            <!-- The links will be added here -->
         </div>
     </div>
 
-    <!-- Links Container where added links will appear -->
-    <div id="linksContainer" class="links-container" style="margin-top: 20px;">
-        <!-- Dynamically added links will appear here -->
-    </div>
+    <script>
+        document.getElementById('addButton').addEventListener('click', function() {
+            var linkInput = document.getElementById('linkInput').value;
+            var linkName = document.getElementById('linkName').value;
+            var imageInput = document.getElementById('imageInput').files[0];
+
+            // Only proceed if all fields are filled
+            if (linkInput && linkName && imageInput) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // Create the link item container
+                    var linkItem = document.createElement('div');
+                    linkItem.classList.add('link-item');
+
+                    // Image as background for YouTube-like preview
+                    var linkImage = document.createElement('div');
+                    linkImage.classList.add('link-image');
+                    linkImage.style.backgroundImage = 'url(' + e.target.result + ')';
+
+                    // Link as the box's redirect
+                    linkItem.onclick = function() {
+                        window.open(linkInput, '_blank');
+                    };
+
+                    // Title of the link below the image
+                    var linkNameElement = document.createElement('span');
+                    linkNameElement.classList.add('link-name');
+                    linkNameElement.textContent = linkName;
+
+                    // Create remove button (a small "X" circle)
+                    var removeButton = document.createElement('button');
+                    removeButton.classList.add('remove-button');
+                    removeButton.textContent = 'X';
+                    removeButton.onclick = function() {
+                        linkItem.remove();
+                    };
+
+                    // Append everything to the link item
+                    linkItem.appendChild(linkImage);
+                    linkItem.appendChild(linkNameElement);
+                    linkItem.appendChild(removeButton);
+
+                    // Add link item to the links container
+                    document.getElementById('linksContainer').appendChild(linkItem);
+                };
+
+                reader.readAsDataURL(imageInput);
+            }
+        });
+    </script>
 
     <script src="./Assests/JS/f.js"></script>
 </body>
