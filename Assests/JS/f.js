@@ -10,21 +10,26 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("savedLinks", JSON.stringify(links));
     }
 
-    function getHostname(url) {
-        try {
-            return new URL(url).hostname.replace("www.", ""); // Extract domain name
-        } catch {
-            return url; // If invalid URL, return as is
-        }
+    function fetchTitle(url, callback) {
+        fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, "text/html");
+                const title = doc.querySelector("title")?.innerText || url;
+                callback(title);
+            })
+            .catch(() => callback(url)); // Fallback to URL if fetch fails
     }
 
     function addLink(url) {
         if (!url.trim()) return;
 
-        const hostname = getHostname(url);
-        links.push({ url, name: hostname });
-        saveLinks();
-        renderLinks();
+        fetchTitle(url, (title) => {
+            links.push({ url, name: title });
+            saveLinks();
+            renderLinks();
+        });
     }
 
     function removeLink(index) {
@@ -48,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const linkText = document.createElement("a");
             linkText.href = link.url;
-            linkText.textContent = link.name;
+            linkText.textContent = link.name; // Display fetched title
             linkText.target = "_blank";
 
             const removeButton = document.createElement("button");
