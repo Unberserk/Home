@@ -1,15 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
     const linkInput = document.getElementById("linkInput");
+    const imageInput = document.getElementById("imageInput");
     const addButton = document.getElementById("addButton");
     const linksContainer = document.getElementById("linksContainer");
 
     // Load saved links from local storage
     let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
 
+    // Function to save links to localStorage
     function saveLinks() {
         localStorage.setItem("savedLinks", JSON.stringify(links));
     }
 
+    // Function to render the links
     function renderLinks() {
         linksContainer.innerHTML = ""; // Clear existing content
         links.forEach((link, index) => {
@@ -21,48 +24,65 @@ document.addEventListener("DOMContentLoaded", function () {
             imageElement.classList.add("link-image");
             imageElement.src = link.image || "./Assests/Imgs/NoIcon.png";
             imageElement.onerror = function () {
-                this.src = "./Assests/Imgs/NoIcon.png"; // Fallback image
+                this.src = "./Assests/Imgs/NoIcon.png"; // Fallback image if the image URL is invalid
             };
 
-            // Create title element that redirects when clicked
-            const titleElement = document.createElement("a");
+            // Create title element
+            const titleElement = document.createElement("span");
             titleElement.classList.add("link-title");
-            titleElement.href = link.url;
-            titleElement.target = "_blank"; // Open in a new tab
-            titleElement.textContent = link.title || link.url; // Show title if available, otherwise show URL
+            titleElement.textContent = link.title || "Untitled Link";
+            
+            // Set the title to be clickable and redirect to the URL
+            titleElement.style.cursor = "pointer";
+            titleElement.addEventListener("click", () => {
+                window.location.href = link.url;
+            });
 
-            // Create remove button (simple "X")
+            // Create remove button (X)
             const removeButton = document.createElement("button");
-            removeButton.classList.add("remove-button");
-            removeButton.textContent = "X"; // "X" to remove the link
-            removeButton.onclick = () => {
+            removeButton.classList.add("remove-btn");
+            removeButton.textContent = "X";
+            removeButton.addEventListener("click", () => {
                 links.splice(index, 1); // Remove the link from the array
-                saveLinks(); // Save updated links
-                renderLinks(); // Re-render the list
-            };
+                saveLinks(); // Save the updated array
+                renderLinks(); // Re-render the links
+            });
 
-            // Append elements to the link container
+            // Append the elements to the link item
             linkElement.appendChild(imageElement);
             linkElement.appendChild(titleElement);
             linkElement.appendChild(removeButton);
+
+            // Add the link item to the container
             linksContainer.appendChild(linkElement);
         });
     }
 
-    addButton.addEventListener("click", function () {
-        const url = linkInput.value;
-        if (url) {
-            const link = {
-                url: url,
-                title: linkInput.value, // Title is set once to the input value
-                image: "", // Optionally add custom image URL if needed
+    // Add new link to the list
+    addButton.addEventListener("click", () => {
+        const linkUrl = linkInput.value.trim();
+        const imageUrl = imageInput.value.trim();
+        const title = linkInput.dataset.title || linkUrl; // Use URL as title if no title is set
+
+        // If the link and image URL are provided, save the new link
+        if (linkUrl && imageUrl) {
+            const newLink = {
+                url: linkUrl,
+                title: title,
+                image: imageUrl
             };
-            links.push(link); // Add new link to the array
-            linkInput.value = ""; // Clear the input field
-            saveLinks(); // Save updated links to local storage
-            renderLinks(); // Re-render the list
+
+            links.push(newLink); // Add new link to the array
+            saveLinks(); // Save the updated links
+            renderLinks(); // Re-render the links
+
+            // Clear the input fields
+            linkInput.value = "";
+            imageInput.value = "";
+            linkInput.dataset.title = ""; // Clear title input field
         }
     });
 
-    renderLinks(); // Initial rendering of links
+    // Initialize the page with any saved links
+    renderLinks();
 });
