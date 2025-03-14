@@ -24,10 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.src = "./Assests/Imgs/NoIcon.png"; // Fallback image
             };
 
-            // Create title element
-            const titleElement = document.createElement("span");
+            // Create title element that redirects when clicked
+            const titleElement = document.createElement("a");
             titleElement.classList.add("link-title");
-            titleElement.textContent = link.title || link.url;
+            titleElement.href = link.url;
+            titleElement.target = "_blank"; // Open in a new tab
+            titleElement.textContent = link.title || link.url; // Show title if available, otherwise show URL
 
             // Create remove button (simple "X")
             const removeButton = document.createElement("button");
@@ -52,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (url) {
             const link = {
                 url: url,
-                title: linkInput.value, // You can use a custom name here
+                title: linkInput.value, // Title is set once to the input value
                 image: "", // Optionally add custom image URL if needed
             };
             links.push(link); // Add new link to the array
