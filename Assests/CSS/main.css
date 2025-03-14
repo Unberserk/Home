@@ -1,29 +1,44 @@
-/* The Scrollable Navigation Buttons */
-.Navigation-Buttons {
+/* ======= General Navigation Styling ======= */
+.Navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: var(--bg-accent2);
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto; /* Enables horizontal scrolling */
-  overflow-y: hidden;
-  white-space: nowrap;
-  scrollbar-width: none; /* Hides the scrollbar */
-  -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
-  width: 100vw; /* Make sure it spans the entire screen width */
-  padding: 10px 0;
+  align-items: center;
+  z-index: 999;
+  padding: 0 10px;
 }
 
-/* Ensure Scrollbar Works */
+/* ======= Scrollable Navigation Buttons ======= */
+.Navigation-Buttons {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent buttons from wrapping */
+  justify-content: flex-start;
+  overflow-x: auto; /* Horizontal scroll */
+  overflow-y: hidden; /* No vertical scroll */
+  white-space: nowrap;
+  scrollbar-width: none; /* Hides scrollbar */
+  -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+  padding-left: 10px;
+  gap: 10px; /* Adds space between buttons */
+}
+
+/* Hide Scrollbar */
 .Navigation-Buttons::-webkit-scrollbar {
   display: none; /* Hides the scrollbar in Webkit browsers */
 }
 
-/* Individual Navigation Button */
+/* ======= Individual Navigation Button ======= */
 .Navigation-Button {
   flex: 0 0 auto;
-  min-width: 120px; /* Ensures buttons don't get squished */
-  margin-right: 10px;
+  min-width: 120px; /* Prevents buttons from shrinking */
+  margin-right: 10px; /* Space between buttons */
 }
 
-/* Button styling */
+/* Styling for Navigation Button Links */
 .Navigation-Button a {
   display: flex;
   align-items: center;
@@ -35,20 +50,23 @@
   border: 1px solid var(--btn-accent);
   text-decoration: none;
   white-space: nowrap; /* Prevents text from breaking */
+  transition: background-color 0.3s ease;
 }
 
-/* Fix for mobile */
+.Navigation-Button a:hover {
+  background-color: var(--btn-hover); /* Adjust hover effect */
+}
+
+/* ======= Mobile View Adjustments ======= */
 @media screen and (max-width: 768px) {
   .Navigation-Buttons {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
     padding-left: 10px;
     gap: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth; /* Smooth scroll on mobile */
   }
 
   .Navigation-Button {
-    flex: 0 0 auto;
-    min-width: 100px;
+    min-width: 100px; /* Adjust button size for mobile */
   }
 }
