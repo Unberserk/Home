@@ -1,18 +1,11 @@
 /* Import Third Party CSS Files First */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Ubuntu:wght@300&display=swap');
 
-/* Imports Custom CSS Files */
+/* Imports CSS Files */
 @import url('style.css');
 @import url('theme.css');
 
-/* All Files */
-
-a:hover {
-  cursor: pointer;
-}
-::-webkit-scrollbar {
-  display: none;
-}
+/* Global Reset */
 * {
   padding: 0;
   margin: 0;
@@ -24,40 +17,24 @@ a:hover {
   overflow: -moz-scrollbars-none;
   scrollbar-width: none;
 }
-h1 {
-  font-family: Calibri, "Trebuchet MS", sans-serif;
-}
-.Normal-Button {
-    margin: 5px 10px;
-    background-color: var(--btn-accent);
-    border: 0;
-    color: var(--text-color1);
-    padding: 0.8em;
-    border-radius: var(--btn-rounding);
-    box-shadow: 0 0 10px 5px var(--btn-box-shadow);
-    transition: 0.75s;
-}
-.Normal-Button:hover {
-    cursor: pointer;
-    transition: 0.75s;
-    scale: 1.1;
-}
-.Normal-Button img {
-    width: 24px;
-    align-items: center;
-    display: flex;
-}
 
 /* Navigation Bar */
-
 .Navigation {
   width: 100%;
   height: 60px;
   background: var(--bg-accent2);
   display: flex;
   border-radius: 0 0 25px 25px;
-  overflow-x: auto; /* Allow horizontal scrolling */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS devices */
+  overflow-x: auto; /* Allow horizontal scroll */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+}
+
+.Navigation-Container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .Navigation-Image img {
@@ -65,32 +42,12 @@ h1 {
   height: 36px;
   padding: 0.5em;
   padding-left: 1.25em;
-  transition: transform 0.5s ease; /* Smooth transition */
 }
 
-/* Fixing the shaking animation */
-.Navigation-Image:hover {
-  transform: none; /* Remove shaking on hover */
-}
-
-.Navigation-Container {
+.Navigation-Menu {
   display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: flex-start; /* Align buttons to start */
-  width: 100%;
-  gap: 15px; /* Space between buttons */
-  flex-wrap: nowrap; /* Prevent buttons from wrapping onto multiple lines */
-  overflow: visible; /* Ensure the container can expand and show all buttons */
-}
-
-.Navigation-Container ul {
   gap: 15px;
-  display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping */
-  overflow-x: auto; /* Enable horizontal scrolling */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
-  padding: 0;
+  margin-right: 15px;
 }
 
 .Navigation-Button a {
@@ -104,39 +61,235 @@ h1 {
   border: 1px solid var(--btn-accent);
 }
 
-/* Make sure buttons are horizontally scrollable */
 .Navigation-Button a:hover {
   border: 1px solid var(--nav-box-hover);
   transition: 0.75s;
+  cursor: pointer;
 }
 
-/* Additional fixes for the buttons */
-.Navigation-Container {
+/* Index Page */
+.Index-Container {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  color: var(--text-color1);
+}
+
+.Index-Container div h1 {
+  font-size: 5em;
+  text-shadow: 0 10px 5px var(--text-shadow);
+}
+
+.Index-SplashText {
+  margin-bottom: 30px;
+  text-shadow: 0 5px 5px var(--text-shadow);
+}
+
+.Index-SplashText:hover {
+  cursor: pointer;
+}
+
+.Index-BottomBar {
+  padding: 0.75em;
+  font-size: 0.5rem;
+  width: 99%;
+  position: absolute;
   display: flex;
-  flex-direction: row;
-  overflow-x: auto; /* Enable scrolling for all buttons */
-  justify-content: flex-start;
-  align-items: center;
+  bottom: 0;
+  justify-content: center;
   gap: 10px;
+}
+
+.Index-BottomBar-Text {
+  color: var(--text-color1);
+  text-decoration: underline;
+}
+
+/* Projects/Apps/Others Page */
+.Projects-Frame {
+  z-index: 9999;
+  display: block;
+  height: 100vh;
   width: 100%;
 }
 
-.Navigation-Container::-webkit-scrollbar {
-  display: none; /* Hide scrollbar */
+.Projects-IFrame {
+  height: 100%;
+  width: 100%;
+  border: none;
 }
 
-.Navigation-Container a {
-  min-width: 100px;
-  max-width: 150px;
-  flex-shrink: 0; /* Prevent buttons from shrinking */
+.Projects-FrameBar {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
   text-align: center;
-  padding: 10px;
-  border-radius: 5px;
+  color: var(--text-color1);
+  padding: 0.75em;
+  background: var(--btn-accent2);
+  border-radius: var(--btn-rounding);
+  width: fit-content;
+  right: 0;
+  height: fit-content;
+  position: absolute;
+  margin: 15px 15px 0 0;
+  font-size: 20px;
+  box-shadow: 0 0 10px var(--btn-box-shadow);
 }
 
-/* Ensure buttons wrap correctly when there is enough space */
+.Projects-FrameBar:hover {
+  cursor: pointer;
+}
+
+.Projects-Container {
+  padding: 2.5em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 35px;
+  justify-content: center;
+}
+
+.Projects-Project {
+  animation: zoom-in-fade 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: var(--btn-rounding);
+  padding: 0.75em;
+  height: fit-content;
+  width: 12.5em;
+  background-color: var(--btn-accent);
+  color: var(--text-color1);
+  transition: 0.75s;
+  box-shadow: 0 0 10px 5px var(--btn-box-shadow);
+}
+
+.Projects-Project:hover {
+  scale: 1.1;
+  transition: 0.75s;
+  cursor: pointer;
+}
+
+.Projects-Container img {
+  border-radius: var(--btn-rounding);
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+}
+
+.Projects-Container h1 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  font-size: large;
+  color: var(--text-color1);
+}
+
+/* Settings Page */
+.Settings-Header {
+  margin-top: 25px;
+  color: var(--text-color1);
+  animation: zoom-in-fade 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.Settings-Container {
+  padding: 0.5em;
+  height: fit-content;
+  animation: zoom-in-fade 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.Settings-TextInput {
+  background-color: var(--btn-accent);
+  box-shadow: 0 0 10px 5px var(--btn-box-shadow);
+  border-radius: var(--btn-rounding);
+  padding: 0.8em;
+  color: var(--text-color1);
+  border: none;
+  margin: 5px 10px;
+}
+
+/* Animations */
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@keyframes zoom-in-fade {
+  0% {
+    scale: 0;
+    opacity: 0;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* Important */
+.hidden {
+  display: none !important;
+}
+
+/* Responsive Layout for Mobile */
 @media screen and (max-width: 768px) {
+  .Navigation-Menu {
+    flex-direction: row;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding-bottom: 10px;
+  }
+
+  .Navigation-Button {
+    min-width: 100px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .Navigation-Button a {
+    padding: 0.75em 1em;
+  }
+
   .Navigation-Container {
-    gap: 5px; /* Reduce gap on smaller screens */
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .Navigation-Menu {
+    gap: 10px;
+    margin-top: 10px;
   }
 }
