@@ -1,62 +1,72 @@
-/* Styling for the links container and individual link item */
+/* Minimalistic container */
 .links-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
 }
 
+/* Style for individual link items */
 .link-item {
     width: 200px;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 10px;
     text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
     background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .link-item:hover {
-    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
 }
 
+/* Image preview with 16:9 aspect ratio */
 .link-image {
     width: 100%;
     height: 0;
-    padding-bottom: 56.25%; /* This maintains the 16:9 aspect ratio */
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
     background-size: cover;
     background-position: center;
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
 }
 
+/* Title under the image */
 .link-name {
     display: block;
-    margin-top: 10px;
+    padding: 10px;
     font-size: 16px;
     font-weight: bold;
-    text-decoration: none;
     color: var(--text-color1);
-    cursor: pointer;
+    text-decoration: none;
+    border-top: 1px solid #ddd;
 }
 
-.link-name:hover {
-    color: var(--btn-accent);
-}
-
-/* Button styles */
+/* Circle Remove button in top-right corner */
 .remove-button {
-    background-color: red;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    background-color: lightgrey;
     color: white;
-    border: none;
     border-radius: 50%;
-    padding: 5px 10px;
+    border: none;
+    text-align: center;
+    font-size: 18px;
     cursor: pointer;
-    font-size: 14px;
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .remove-button:hover {
-    background-color: darkred;
+    background-color: grey;
 }
 
 /* Styling for the input fields */
