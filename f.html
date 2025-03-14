@@ -1,63 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berserk</title>
-    <link rel="icon" type="image/png" href="./Assests/Imgs/Logo.png">
-    <link rel="stylesheet" type="text/css" href="./Assests/CSS/main.css">
-    <link rel="stylesheet" type="text/css" href="./Assests/CSS/f.css">
-    <link rel="stylesheet" type="text/css" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Berserk</title>
+  <link rel="icon" type="image/png" href="./Assests/Imgs/Logo.png" />
+  <!-- Main CSS: Contains global styles and grid styles -->
+  <link rel="stylesheet" type="text/css" href="./Assests/CSS/main.css" />
+  <!-- f.css can contain additional styles for this page if needed -->
+  <link rel="stylesheet" type="text/css" href="./Assests/CSS/f.css" />
+  <!-- Icon Library -->
+  <link rel="stylesheet" type="text/css" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
 </head>
 <body class="default">
-    
-    <nav class="Navigation">
-        <div class="Navigation-Container">
-            <a class="Navigation-Image" href="./"><img src="./Assests/Imgs/Logo.png"></img></a>
-            <ul>
-                <li class="Navigation-Button"><a href="./"><i class="las la-home"></i><p>Home</p></a></li>
-                <li class="Navigation-Button"><a href="./g.html"><i class="las la-file"></i><p>Projects</p></a></li>
-                <li class="Navigation-Button"><a href="./u.html"><i class="las la-file"></i><p>Cinema</p></a></li>
-                <li class="Navigation-Button"><a href="./d.html"><i class="las la-file"></i><p>Downloads</p></a></li>
-                <li class="Navigation-Button"><a href="./f.html"><i class="las la-file"></i><p>Links</p></a></li>
-                <li class="Navigation-Button"><a href="./e.html"><i class="las la-hourglass-half"></i><p>Emulator</p></a></li>
-                <li class="Navigation-Button"><a href="./settings.html"><i class="las la-cog"></i><p>Settings</p></a></li>
-            <ul>
-        </div>
-    </nav>
-    
-    <div class="Projects-Frame hidden">
-        <div class="Projects-FrameBar">
-            <i id="close" class="las la-times-circle"></i>
-            <i id="fullscreen" class="las la-expand"></i>
-            <i id="link" class="las la-link"></i>
-        </div>
-        <iframe class="Projects-IFrame" src=""></iframe>
+  <nav class="Navigation">
+    <div class="Navigation-Container">
+      <a class="Navigation-Image" href="./"><img src="./Assests/Imgs/Logo.png" alt="Logo"></a>
+      <ul>
+        <li class="Navigation-Button"><a href="./"><i class="las la-home"></i><p>Home</p></a></li>
+        <li class="Navigation-Button"><a href="./g.html"><i class="las la-file"></i><p>Projects</p></a></li>
+        <li class="Navigation-Button"><a href="./u.html"><i class="las la-file"></i><p>Cinema</p></a></li>
+        <li class="Navigation-Button"><a href="./d.html"><i class="las la-file"></i><p>Downloads</p></a></li>
+        <li class="Navigation-Button"><a href="./f.html"><i class="las la-file"></i><p>Links</p></a></li>
+        <li class="Navigation-Button"><a href="./e.html"><i class="las la-hourglass-half"></i><p>Emulator</p></a></li>
+        <li class="Navigation-Button"><a href="./settings.html"><i class="las la-cog"></i><p>Settings</p></a></li>
+      <ul>
     </div>
+  </nav>
 
-    <div class="hideAfterFullscreen">
-        <center>
-            <h1 style="margin-top: 25px; color: var(--text-color1)">Projects</h1>
-            <p style="margin-bottom: 25px;"><a style="color: var(--text-color1); text-decoration: underline;" href="https://docs.google.com/forms/d/e/1FAIpQLSdxE59ZmQ1XB9KiCue66vxhiiiJqe03wZMRAJG2TzGSOvTP7A/viewform">Request Project</a></p>
-        </center>
-        <hr>
-        <center style="padding: 2em 0 0 0">
-
-            <input type="text" class="Settings-TextInput" id="GameSearchBar" placeholder="Search For Project">
-        </center>
+  <!-- Projects Frame (hidden by default) -->
+  <div class="Projects-Frame hidden">
+    <div class="Projects-FrameBar">
+      <i id="close" class="las la-times-circle"></i>
+      <i id="fullscreen" class="las la-expand"></i>
+      <i id="link" class="las la-link"></i>
     </div>
+    <iframe class="Projects-IFrame" src=""></iframe>
+  </div>
 
-    <div class="Projects-Container hideAfterFullscreen">
-        <div class="Projects-Project">
-            <a onclick="WidgetBot()">
-                <img src="./Assests/Imgs/WidgetBot.png" loading="lazy" onerror="this.src='./Assests/Imgs/NoIcon.png'"/>
-                <h1>Unberserk</h1>
-            </a>
-        </div>
+  <div class="hideAfterFullscreen">
+    <center>
+      <h1 style="margin-top: 25px; color: var(--text-color1)">Projects</h1>
+      <p style="margin-bottom: 25px;"><a style="color: var(--text-color1); text-decoration: underline;" href="https://docs.google.com/forms/d/e/1FAIpQLSdxE59ZmQ1XB9KiCue66vxhiiiJqe03wZMRAJG2TzGSOvTP7A/viewform">Request Project</a></p>
+    </center>
+    <hr>
+    <center style="padding: 2em 0 0 0">
+      <input type="text" class="Settings-TextInput" id="GameSearchBar" placeholder="Search For Project">
+    </center>
+  </div>
+
+  <div class="Projects-Container hideAfterFullscreen">
+    <div class="Projects-Project">
+      <a onclick="WidgetBot()">
+        <img src="./Assests/Imgs/WidgetBot.png" loading="lazy" onerror="this.src='./Assests/Imgs/NoIcon.png'" alt="WidgetBot" />
+        <h1>Unberserk</h1>
+      </a>
     </div>
+  </div>
 
-    <script src="./Assests/JS/aboutblank.js"></script>
-    <script src="./Assests/JS/options.js"></script>
-    <script src="./Assests/JS/f.js"></script>
+  <!-- Custom Link Adding Section -->
+  <div style="text-align: center;">
+    <input type="text" id="link-input" placeholder="Enter URL here" />
+    <button id="add-link-button" class="Normal-Button">Add Link</button>
+  </div>
+  <!-- Container for displaying the link grid -->
+  <div id="site-grid" class="site-grid"></div>
+
+  <!-- Include Other Scripts -->
+  <script src="./Assests/JS/aboutblank.js"></script>
+  <script src="./Assests/JS/options.js"></script>
+  <!-- f.js contains both the link-adding logic and the Projects Frame buttons script -->
+  <script src="./Assests/JS/f.js"></script>
 </body>
 </html>
