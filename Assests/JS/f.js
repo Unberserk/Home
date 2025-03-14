@@ -1,21 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
   // ====================
-  // Custom Link Adding Code
+  // Custom Link Adding Code using a CORS Proxy
   // ====================
   
-  // Function to fetch metadata (title and image) from a URL
+  // Function to fetch metadata (title and image) from a URL using AllOrigins proxy
   async function fetchSiteMetadata(url) {
     try {
-      const response = await fetch(url, { method: 'GET' });
-      if (!response.ok) throw new Error('Failed to fetch the URL');
+      // Use the AllOrigins proxy to bypass CORS restrictions
+      const proxyUrl = 'https://api.allorigins.win/get?disableCache=true&url=' + encodeURIComponent(url);
+      const response = await fetch(proxyUrl);
+      if (!response.ok) throw new Error('Failed to fetch the URL via proxy');
       
-      const text = await response.text();
+      const data = await response.json();
+      const text = data.contents;
       const parser = new DOMParser();
       const doc = parser.parseFromString(text, 'text/html');
       
       // Extract the page title
       const title = doc.querySelector('title') ? doc.querySelector('title').innerText : 'No title';
-      // Extract the Open Graph image, if available
+      // Extract the Open Graph image if available
       const image = doc.querySelector('meta[property="og:image"]')
                     ? doc.querySelector('meta[property="og:image"]').getAttribute('content')
                     : '';
@@ -31,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
   
-  // Function to add a custom link from the user input
+  // Function to add a custom link based on user input
   async function addCustomLink() {
     const inputField = document.getElementById("link-input");
     const url = inputField.value.trim();
@@ -70,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // ====================
   // Projects-Frame Buttons Script
   // ====================
-  
   const projectFrame = document.querySelector('.Projects-Frame');
   const closeBtn = document.getElementById('close');
   const fullscreenBtn = document.getElementById('fullscreen');
@@ -98,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
   
-  // Link Button: Copy the iframe's URL to the clipboard (or open it in a new tab on failure)
+  // Link Button: Copy the iframe's URL to the clipboard or open it in a new tab
   if (linkBtn && iframe) {
     linkBtn.addEventListener('click', () => {
       const src = iframe.src;
