@@ -4,62 +4,69 @@ document.addEventListener("DOMContentLoaded", function () {
     const linksContainer = document.getElementById("linksContainer");
 
     // Load saved links from local storage
-    let savedLinks = JSON.parse(localStorage.getItem("savedLinks")) || [];
-    savedLinks.forEach(url => fetchMetadata(url));
+    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
 
-    // Function to add new links
-    addButton.addEventListener("click", function () {
-        const url = linkInput.value.trim();
-        if (url) {
-            fetchMetadata(url);
-            savedLinks.push(url);
-            localStorage.setItem("savedLinks", JSON.stringify(savedLinks));
-            linkInput.value = "";
+    function saveLinks() {
+        localStorage.setItem("savedLinks", JSON.stringify(links));
+    }
+
+    function getHostname(url) {
+        try {
+            return new URL(url).hostname.replace("www.", ""); // Extract domain name
+        } catch {
+            return url; // If invalid URL, return as is
         }
+    }
+
+    function addLink(url) {
+        if (!url.trim()) return;
+
+        const hostname = getHostname(url);
+        links.push({ url, name: hostname });
+        saveLinks();
+        renderLinks();
+    }
+
+    function removeLink(index) {
+        links.splice(index, 1);
+        saveLinks();
+        renderLinks();
+    }
+
+    function renderLinks() {
+        linksContainer.innerHTML = "";
+
+        links.forEach((link, index) => {
+            const linkItem = document.createElement("div");
+            linkItem.classList.add("link-item");
+
+            const favicon = document.createElement("img");
+            favicon.src = `https://www.google.com/s2/favicons?domain=${link.url}`;
+            favicon.onerror = function () {
+                this.src = "./Assests/Imgs/NoIcon.png"; // Fallback icon
+            };
+
+            const linkText = document.createElement("a");
+            linkText.href = link.url;
+            linkText.textContent = link.name;
+            linkText.target = "_blank";
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "X";
+            removeButton.classList.add("remove-button");
+            removeButton.onclick = () => removeLink(index);
+
+            linkItem.appendChild(favicon);
+            linkItem.appendChild(linkText);
+            linkItem.appendChild(removeButton);
+            linksContainer.appendChild(linkItem);
+        });
+    }
+
+    addButton.addEventListener("click", function () {
+        addLink(linkInput.value);
+        linkInput.value = "";
     });
 
-    // Fetch metadata for a given URL
-    function fetchMetadata(url) {
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-        
-        fetch(proxyUrl)
-            .then(response => response.json())
-            .then(data => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.contents, "text/html");
-
-                const title = doc.querySelector("title")?.innerText || "Unknown Title";
-                const favicon = doc.querySelector("link[rel~='icon']")?.href || "";
-                
-                // If favicon is a relative URL, convert it to absolute
-                let absoluteFavicon = favicon.startsWith("http") ? favicon : new URL(favicon, url).href;
-
-                createLinkElement(url, title, absoluteFavicon);
-            })
-            .catch(error => {
-                console.error("Failed to fetch metadata:", error);
-                createLinkElement(url, "Unknown Title", "./Assests/Imgs/NoIcon.png");
-            });
-    }
-
-    // Function to create a link element
-    function createLinkElement(url, title, imageSrc) {
-        const linkElement = document.createElement("div");
-        linkElement.classList.add("link-item");
-        
-        linkElement.innerHTML = `
-            <img src="${imageSrc}" alt="Favicon" class="link-icon" onerror="this.src='./Assests/Imgs/NoIcon.png'">
-            <a href="${url}" target="_blank" class="link-title">${title}</a>
-            <button class="removeButton">Remove</button>
-        `;
-
-        // Remove button functionality
-        linkElement.querySelector(".removeButton").addEventListener("click", function () {
-            linkElement.remove();
-            savedLinks = savedLinks.filter(link => link !== url);
-            localStorage.setItem("savedLinks", JSON.stringify(savedLinks));
-        });
-
-        linksContainer.appendChild(linkElement);
-    }
+    renderLinks(); // Initial render
 });
