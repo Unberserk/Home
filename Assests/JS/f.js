@@ -25,90 +25,42 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             // Create title element
-            const titleElement = document.createElement("p");
+            const titleElement = document.createElement("span");
             titleElement.classList.add("link-title");
-            titleElement.textContent = link.name;
+            titleElement.textContent = link.title || link.url;
 
-            // Create remove button
+            // Create remove button (simple "X")
             const removeButton = document.createElement("button");
-            removeButton.textContent = "Remove";
             removeButton.classList.add("remove-button");
-            removeButton.onclick = function () {
-                removeLink(index);
+            removeButton.textContent = "X"; // "X" to remove the link
+            removeButton.onclick = () => {
+                links.splice(index, 1); // Remove the link from the array
+                saveLinks(); // Save updated links
+                renderLinks(); // Re-render the list
             };
 
-            // Create file input for custom image upload
-            const fileInput = document.createElement("input");
-            fileInput.type = "file";
-            fileInput.accept = "image/*";
-            fileInput.classList.add("image-upload");
-            fileInput.onchange = function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        links[index].image = e.target.result;
-                        saveLinks();
-                        renderLinks();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            };
-
-            // Wrap everything in a container
+            // Append elements to the link container
             linkElement.appendChild(imageElement);
             linkElement.appendChild(titleElement);
-            linkElement.appendChild(fileInput);
             linkElement.appendChild(removeButton);
             linksContainer.appendChild(linkElement);
         });
     }
 
-    function addLink(url) {
-        if (!url.trim()) return;
-
-        const newLink = { url, name: url, image: "" }; // Default with no image
-        links.push(newLink);
-        saveLinks();
-        renderLinks();
-
-        // Fetch page title with delay
-        setTimeout(() => fetchTitle(newLink, links.length - 1), 5000);
-    }
-
-    function fetchTitle(link, index) {
-        fetch(link.url)
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-                const title = doc.querySelector("title") ? doc.querySelector("title").innerText : link.url;
-                links[index].name = title;
-                saveLinks();
-                renderLinks();
-            })
-            .catch(() => {
-                links[index].name = link.url;
-                saveLinks();
-                renderLinks();
-            });
-    }
-
-    function removeLink(index) {
-        links.splice(index, 1);
-        saveLinks();
-        renderLinks();
-    }
-
-    // Add button event
     addButton.addEventListener("click", function () {
-        const url = linkInput.value.trim();
+        const url = linkInput.value;
         if (url) {
-            addLink(url);
-            linkInput.value = "";
+            const link = {
+                url: url,
+                title: linkInput.value, // You can use a custom name here
+                image: "", // Optionally add custom image URL if needed
+            };
+            links.push(link); // Add new link to the array
+            linkInput.value = ""; // Clear the input field
+            saveLinks(); // Save updated links to local storage
+            renderLinks(); // Re-render the list
         }
     });
 
-    // Initial render
-    renderLinks();
+    renderLinks(); // Initial rendering of links
 });
