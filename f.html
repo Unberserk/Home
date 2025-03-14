@@ -1,67 +1,50 @@
-// Function to load a link into the iframe
-function loadLink(url) {
-    const iframe = document.getElementById('site-frame');
-    iframe.src = url; // Set the iframe source to the selected link
-    document.getElementById('site-frame-container').classList.remove('hidden'); // Show the iframe container
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berserk</title>
+    <link rel="icon" type="image/png" href="./Assests/Imgs/Logo.png">
+    <link rel="stylesheet" type="text/css" href="./Assests/CSS/main.css">
+    <link rel="stylesheet" type="text/css" href="./Assests/CSS/f.css">
+    <link rel="stylesheet" type="text/css" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+</head>
+<body class="default">
+    <nav class="Navigation">
+        <div class="Navigation-Container">
+            <a class="Navigation-Image" href="./"><img src="./Assests/Imgs/Logo.png"></a>
+            <ul>
+                <li class="Navigation-Button"><a href="./"><i class="las la-home"></i><p>Home</p></a></li>
+                <li class="Navigation-Button"><a href="./g.html"><i class="las la-file"></i><p>Projects</p></a></li>
+                <li class="Navigation-Button"><a href="./u.html"><i class="las la-file"></i><p>Cinema</p></a></li>
+                <li class="Navigation-Button"><a href="./d.html"><i class="las la-file"></i><p>Downloads</p></a></li>
+                <li class="Navigation-Button"><a href="./f.html"><i class="las la-file"></i><p>Links</p></a></li>
+                <li class="Navigation-Button"><a href="./e.html"><i class="las la-hourglass-half"></i><p>Emulator</p></a></li>
+                <li class="Navigation-Button"><a href="./settings.html"><i class="las la-cog"></i><p>Settings</p></a></li>
+            </ul>
+        </div>
+    </nav>
 
-// Function to go back to the previous page
-function goBack() {
-    document.getElementById('site-frame-container').classList.add('hidden'); // Hide iframe container
-}
+    <div class="container">
+        <h1>Add Links</h1>
+        
+        <div class="input-section">
+            <input type="text" id="link-input" placeholder="Enter URL">
+            <input type="text" id="title-input" placeholder="Enter Title">
+            <input type="file" id="image-input">
+            <button id="add-link-button">Add Link</button>
+        </div>
 
-// Adding links dynamically
-const linksContainer = document.getElementById("links-container");
-const addLinkButton = document.getElementById("add-link-button");
-const linkInput = document.getElementById("link-input");
-const titleInput = document.getElementById("title-input");
-const imageInput = document.getElementById("image-input");
+        <div id="links-container">
+            <!-- Links will be dynamically added here -->
+        </div>
 
-// Function to add a new link
-addLinkButton.addEventListener("click", () => {
-    const linkUrl = linkInput.value.trim();
-    const title = titleInput.value.trim();
-    const imageUrl = imageInput.files[0] ? URL.createObjectURL(imageInput.files[0]) : "";
+        <div id="site-frame-container" class="hidden">
+            <button onclick="goBack()" class="back-button">Back</button>
+            <iframe id="site-frame" class="iframe" src="" width="100%" height="600px"></iframe>
+        </div>
+    </div>
 
-    // Check if the URL and title are provided
-    if (linkUrl && title) {
-        const linkBox = document.createElement("div");
-        linkBox.classList.add("link-box");
-
-        // Add image if available
-        if (imageUrl) {
-            const linkImage = document.createElement("img");
-            linkImage.src = imageUrl;
-            linkImage.alt = title;
-            linkBox.appendChild(linkImage);
-        }
-
-        // Add title and make the entire box clickable
-        const linkTitle = document.createElement("p");
-        linkTitle.textContent = title;
-        linkBox.appendChild(linkTitle);
-
-        // Make the whole link box clickable to open the URL in the iframe
-        linkBox.addEventListener("click", () => loadLink(linkUrl));
-
-        // Create a remove button (a white X in a grey circle)
-        const removeButton = document.createElement("button");
-        removeButton.classList.add("remove-button");
-        removeButton.innerHTML = "&times;";
-        removeButton.addEventListener("click", () => {
-            linksContainer.removeChild(linkBox); // Remove the link box
-        });
-
-        linkBox.appendChild(removeButton);
-
-        // Append the new link box to the links container
-        linksContainer.appendChild(linkBox);
-
-        // Clear inputs after adding the link
-        linkInput.value = '';
-        titleInput.value = '';
-        imageInput.value = '';
-    } else {
-        alert("Please provide both a title and a valid link.");
-    }
-});
+    <script src="./Assests/JS/f.js"></script>
+</body>
+</html>
