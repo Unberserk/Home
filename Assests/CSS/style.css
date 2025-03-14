@@ -17,8 +17,8 @@ body {
     width: 100%;
     background-color: var(--bg-accent1);
     z-index: 1000;
-    overflow: hidden; /* Prevent whole page scroll */
     padding: 10px 0;
+    box-sizing: border-box;
 }
 
 /* SCROLLABLE NAVIGATION CONTAINER (LEFT TO RIGHT SCROLLING) */
@@ -28,9 +28,9 @@ body {
     gap: 20px; /* Space between buttons */
     overflow-x: auto; /* Allow scrolling horizontally */
     white-space: nowrap;
-    scroll-behavior: smooth; /* Smooth scrolling */
     -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
     scrollbar-width: none; /* Hides scrollbar in Firefox */
+    padding-left: 15px;
 }
 
 /* HIDE SCROLLBAR FOR MOBILE */
@@ -40,7 +40,7 @@ body {
 
 /* NAVIGATION BUTTONS */
 .Navigation-Button {
-    flex: 0 0 auto;
+    flex: 0 0 auto; /* Prevent buttons from shrinking */
     padding: 10px 15px;
     background-color: var(--btn-accent);
     border-radius: var(--btn-rounding);
