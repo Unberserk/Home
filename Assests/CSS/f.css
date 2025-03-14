@@ -1,45 +1,68 @@
-/* General Styling */
+/* General Body Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7; /* Keep the page background light */
-    color: #333;
-    padding: 20px;
+    background-color: var(--background-color); /* Replace with your original background color variable */
+    color: var(--text-color1); /* Main text color */
+    margin: 0;
+    padding: 0;
 }
 
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+/* Navigation Styling */
+.Navigation {
+    background-color: var(--primary-color); /* Main navigation bar color */
+    color: var(--text-color1);
+    padding: 10px;
 }
 
-/* Input fields styling */
+.Navigation-Container ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.Navigation-Button {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Navigation-Button a {
+    color: var(--text-color1);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.Navigation-Button i {
+    margin-right: 10px;
+}
+
+/* Input fields and Add Button */
 .Settings-TextInput {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
-    box-sizing: border-box;
-    color: #333;
+    color: var(--text-color1);
 }
 
-/* Add button */
 #addButton {
     padding: 10px 20px;
-    background-color: #007BFF;
-    color: #fff;
+    background-color: var(--button-color); /* Use your original button color */
+    color: var(--text-color1);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
 }
 
 #addButton:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-color); /* Hover color for the button */
 }
 
-/* Links container */
+/* Links container and link items */
 .links-container {
     display: flex;
     flex-wrap: wrap;
@@ -57,7 +80,6 @@ body {
     position: relative;
 }
 
-/* Link image */
 .link-image {
     width: 100%;
     height: 100px;
@@ -65,14 +87,12 @@ body {
     background-position: center;
 }
 
-/* Title box: Dark background for the title */
 .link-name {
     padding: 10px;
     font-size: 14px;
     text-align: center;
-    color: #fff; /* White text on the dark background */
-    background-color: #333; /* Dark background for the title box */
-    border-top: 2px solid #444; /* Subtle border at the top */
+    color: var(--text-color1);
+    background-color: var(--secondary-color); /* Dark background for the title box */
 }
 
 /* Remove button (small "X") */
