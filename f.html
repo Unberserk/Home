@@ -18,18 +18,45 @@
                 <li class="Navigation-Button"><a href="./g.html"><i class="las la-file"></i><p>Projects</p></a></li>
                 <li class="Navigation-Button"><a href="./u.html"><i class="las la-file"></i><p>Cinema</p></a></li>
                 <li class="Navigation-Button"><a href="./d.html"><i class="las la-file"></i><p>Downloads</p></a></li>
-                <li class="Navigation-Button"><a href="./d.html"><i class="las la-file"></i><p>Downloads</p></a></li>
+                <li class="Navigation-Button"><a href="./f.html"><i class="las la-file"></i><p>Links</p></a></li>
                 <li class="Navigation-Button"><a href="./e.html"><i class="las la-hourglass-half"></i><p>Emulator</p></a></li>
                 <li class="Navigation-Button"><a href="./settings.html"><i class="las la-cog"></i><p>Settings</p></a></li>
             <ul>
         </div>
     </nav>
     
-    <style>
-        iframe { animation: zoom-in-fade 1s cubic-bezier(0.34, 1.56, 0.64, 1); border: 0; width: 100%; display: block; margin: auto; height: calc(100vh - 60px); }
-    </style>
-    <iframe src="./Assests/Others/Emulate/index.html"></iframe>
+    <div class="Projects-Frame hidden">
+        <div class="Projects-FrameBar">
+            <i id="close" class="las la-times-circle"></i>
+            <i id="fullscreen" class="las la-expand"></i>
+            <i id="link" class="las la-link"></i>
+        </div>
+        <iframe class="Projects-IFrame" src=""></iframe>
+    </div>
 
+    <div class="hideAfterFullscreen">
+        <center>
+            <h1 style="margin-top: 25px; color: var(--text-color1)">Projects</h1>
+            <p style="margin-bottom: 25px;"><a style="color: var(--text-color1); text-decoration: underline;" href="https://docs.google.com/forms/d/e/1FAIpQLSdxE59ZmQ1XB9KiCue66vxhiiiJqe03wZMRAJG2TzGSOvTP7A/viewform">Request Project</a></p>
+        </center>
+        <hr>
+        <center style="padding: 2em 0 0 0">
+
+            <input type="text" class="Settings-TextInput" id="GameSearchBar" placeholder="Search For Project">
+        </center>
+    </div>
+
+    <div class="Projects-Container hideAfterFullscreen">
+        <div class="Projects-Project">
+            <a onclick="WidgetBot()">
+                <img src="./Assests/Imgs/WidgetBot.png" loading="lazy" onerror="this.src='./Assests/Imgs/NoIcon.png'"/>
+                <h1>Unberserk</h1>
+            </a>
+        </div>
+    </div>
+
+    <script src="./Assests/JS/aboutblank.js"></script>
     <script src="./Assests/JS/options.js"></script>
+    <script src="./Assests/JS/g.js"></script>
 </body>
 </html>
