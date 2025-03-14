@@ -24,8 +24,8 @@ body {
 /* SCROLLABLE NAVIGATION CONTAINER (LEFT TO RIGHT SCROLLING) */
 .Navigation-Container {
     display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping of buttons */
     justify-content: flex-start;
-    gap: 20px; /* Space between buttons */
     overflow-x: auto; /* Allow scrolling horizontally */
     white-space: nowrap;
     -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
@@ -60,7 +60,7 @@ body {
     font-size: 20px;
 }
 
-/* ======= PAGE CONTENT (Buttons) ======= */
+/* ======= PAGE CONTENT BELOW NAVIGATION ======= */
 .Index-Container {
     text-align: center;
     width: 100%;
@@ -93,13 +93,6 @@ body {
     text-decoration: none;
     color: var(--text-color1);
     display: block;
-}
-
-/* ======= VERTICAL SCROLLING FOR CONTENT BELOW NAVIGATION ======= */
-.Index-Container {
-    overflow-y: auto; /* Enable vertical scrolling */
-    height: calc(100vh - 60px); /* Adjust to not overlap the navbar */
-    padding-bottom: 10px; /* Padding to ensure last button isn't cut off */
 }
 
 /* ======= MOBILE SCROLLING FIXES ======= */
