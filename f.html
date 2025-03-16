@@ -40,10 +40,12 @@
 
             <button class="add-link-btn" onclick="addLink()">Add Link</button>
 
-            <div class="import-section">
-                <input type="file" id="file-input" accept=".txt" class="input-file">
-                <button class="import-btn" onclick="importLinks()">Import Links</button>
+            <label for="file-input">Import Links from TXT:</label>
+            <input type="file" id="file-input" accept=".txt" class="input-file">
+
+            <div>
                 <button class="remove-all-btn" onclick="removeAllLinks()">Remove All Links</button>
+                <button class="import-links-btn" onclick="importLinks()">Import Links</button>
             </div>
         </div>
 
