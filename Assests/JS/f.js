@@ -1,4 +1,3 @@
-// Function to initialize stored links on page load
 document.addEventListener("DOMContentLoaded", function () {
     loadLinks();
 });
@@ -46,6 +45,7 @@ function renderLink(linkData) {
 
     const linkDiv = document.createElement("div");
     linkDiv.classList.add("link-entry");
+    linkDiv.id = linkData.url; // Setting unique ID for each link
 
     const img = document.createElement("img");
     img.src = linkData.image;
@@ -60,11 +60,15 @@ function renderLink(linkData) {
 
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "Remove";
-    removeBtn.classList.add("remove-button");
+    removeBtn.classList.add("remove-link-btn");
 
     removeBtn.addEventListener("click", function () {
-        removeFromLocalStorage(linkData.url);
-        linkDiv.remove();
+        removeLink(linkData); // Call removeLink when clicked
+    });
+
+    // Add the event listener to handle link container click
+    linkDiv.addEventListener("click", function () {
+        openIframe(linkData.url); // Open iframe when the link container is clicked
     });
 
     linkDiv.appendChild(img);
@@ -72,13 +76,10 @@ function renderLink(linkData) {
     linkDiv.appendChild(removeBtn);
     linkDiv.appendChild(previewContainer);  // Append the preview container
 
-    linkDiv.addEventListener("click", function (event) {
-        if (event.target !== removeBtn) {
-            showPreview(linkData.url, previewContainer); // Show preview on click
-        }
-    });
-
     linkContainer.appendChild(linkDiv);
+
+    // Show preview image in preview container
+    showPreview(linkData.url, previewContainer);
 }
 
 // Function to show preview image of the page
@@ -88,7 +89,6 @@ function showPreview(url, previewContainer) {
     previewImage.alt = "Page preview";
     previewContainer.appendChild(previewImage);
 
-    // You can add an event listener to remove the preview or redirect after a delay
     previewImage.addEventListener("click", function () {
         window.open(url, "_blank");  // Redirect when the image is clicked
     });
@@ -104,7 +104,6 @@ async function getPreviewImage(url) {
         if (ogImage && ogImage.content) {
             return ogImage.content;
         }
-        // Fallback to a default image if no og:image is found
         return "https://via.placeholder.com/150"; // Default placeholder
     } catch (e) {
         console.error("Error fetching preview image: ", e);
@@ -112,18 +111,18 @@ async function getPreviewImage(url) {
     }
 }
 
-// Function to open the iframe properly
+// Function to open the iframe properly without adding to browser history
 function openIframe(url) {
     const iframeContainer = document.querySelector('.iframeContainer');
     const iframeLink = document.getElementById('iframeLink');
 
-    // Replace the main page's URL with the current one to prevent iframe link from being added to history
-    window.history.replaceState(null, null, window.location.href); // Prevent iframe URL from appearing in browser history
+    // Prevent browser history from being updated
+    window.history.replaceState(null, null, location.href);
 
     iframeContainer.style.display = 'block';
     iframeLink.src = "about:blank"; // Ensures a fresh load
     setTimeout(() => {
-        iframeLink.src = url; // Set the actual URL to load in the iframe
+        iframeLink.src = formatUrl(url);
     }, 50);
 }
 
@@ -151,17 +150,36 @@ function saveToLocalStorage(linkData) {
     localStorage.setItem("savedLinks", JSON.stringify(links));
 }
 
-// Function to remove link from local storage
-function removeFromLocalStorage(url) {
-    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
-    links = links.filter(link => link.url !== url);
-    localStorage.setItem("savedLinks", JSON.stringify(links));
-}
-
 // Function to load links from local storage
 function loadLinks() {
     const links = JSON.parse(localStorage.getItem("savedLinks")) || [];
     links.forEach(renderLink);
+}
+
+// Function to remove link from local storage and DOM
+function removeLink(linkData) {
+    // Remove from Local Storage
+    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
+    links = links.filter(link => link.url !== linkData.url);
+    localStorage.setItem("savedLinks", JSON.stringify(links));
+
+    // Remove the link from the DOM
+    const linkDiv = document.getElementById(linkData.url); // Use unique ID for the link
+    if (linkDiv) {
+        linkDiv.remove();
+    }
+}
+
+// Function to remove all links from local storage and DOM
+function removeAllLinks() {
+    // Clear local storage
+    localStorage.removeItem("savedLinks");
+
+    // Clear all links in the DOM
+    const linkContainer = document.getElementById("link-container");
+    while (linkContainer.firstChild) {
+        linkContainer.removeChild(linkContainer.firstChild);
+    }
 }
 
 // Function to handle file import
@@ -173,7 +191,7 @@ function importTxtFile(event) {
     reader.onload = function (e) {
         const content = e.target.result.trim();
         const lines = content.split("\n").map(line => line.trim());
-
+        
         let importedLinks = [];
         for (let i = 0; i < lines.length; i += 4) {
             if (lines[i] && lines[i + 1] && lines[i + 2]) {
@@ -198,14 +216,3 @@ function importTxtFile(event) {
 
 // Event listener for file input
 document.getElementById("file-input").addEventListener("change", importTxtFile);
-
-// Function to remove all links
-function removeAllLinks() {
-    if (confirm("Are you sure you want to remove all links?")) {
-        localStorage.removeItem("savedLinks");
-        document.getElementById("link-container").innerHTML = "";  // Clear the link container
-    }
-}
-
-// Event listener for remove all button
-document.getElementById("remove-all-btn").addEventListener("click", removeAllLinks);
