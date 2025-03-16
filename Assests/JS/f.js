@@ -55,6 +55,9 @@ function renderLink(linkData) {
     const linkTitle = document.createElement("p");
     linkTitle.textContent = linkData.title;
 
+    const previewContainer = document.createElement("div");
+    previewContainer.classList.add("preview-container");
+
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "Remove";
     removeBtn.classList.add("remove-button");
@@ -67,14 +70,46 @@ function renderLink(linkData) {
     linkDiv.appendChild(img);
     linkDiv.appendChild(linkTitle);
     linkDiv.appendChild(removeBtn);
+    linkDiv.appendChild(previewContainer);  // Append the preview container
 
     linkDiv.addEventListener("click", function (event) {
         if (event.target !== removeBtn) {
-            openIframe(linkData.url);
+            showPreview(linkData.url, previewContainer); // Show preview on click
         }
     });
 
     linkContainer.appendChild(linkDiv);
+}
+
+// Function to show preview image of the page
+function showPreview(url, previewContainer) {
+    const previewImage = document.createElement("img");
+    previewImage.src = getPreviewImage(url); // Function to get the preview image
+    previewImage.alt = "Page preview";
+    previewContainer.appendChild(previewImage);
+
+    // You can add an event listener to remove the preview or redirect after a delay
+    previewImage.addEventListener("click", function () {
+        window.open(url, "_blank");  // Redirect when the image is clicked
+    });
+}
+
+// Function to fetch the preview image (meta tag 'og:image' or fallback to a default)
+async function getPreviewImage(url) {
+    try {
+        const response = await fetch(url);
+        const htmlText = await response.text();
+        const doc = new DOMParser().parseFromString(htmlText, "text/html");
+        const ogImage = doc.querySelector("meta[property='og:image']");
+        if (ogImage && ogImage.content) {
+            return ogImage.content;
+        }
+        // Fallback to a default image if no og:image is found
+        return "https://via.placeholder.com/150"; // Default placeholder
+    } catch (e) {
+        console.error("Error fetching preview image: ", e);
+        return "https://via.placeholder.com/150"; // Default placeholder if error
+    }
 }
 
 // Function to open the iframe properly
