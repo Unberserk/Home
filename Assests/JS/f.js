@@ -67,13 +67,13 @@ function renderLink(linkData) {
         openIframe(linkData.url);
     });
 
-    // Hover event for live preview
-    linkDiv.addEventListener("mouseenter", function (event) {
-        showHoverPreview(linkData.url, event);
+    // Hover event for image preview
+    linkDiv.addEventListener("mouseenter", function () {
+        showImagePreview(img, linkData.url);
     });
 
     linkDiv.addEventListener("mouseleave", function () {
-        hideHoverPreview();
+        hideImagePreview(img, linkData.image);
     });
 
     linkDiv.appendChild(img);
@@ -149,45 +149,13 @@ function removeAllLinks() {
     }
 }
 
-// Function to show live preview on hover
-function showHoverPreview(url, event) {
-    let preview = document.getElementById("hover-preview");
-    if (!preview) {
-        preview = document.createElement("div");
-        preview.id = "hover-preview";
-        preview.style.position = "absolute";
-        preview.style.width = "300px";
-        preview.style.height = "200px";
-        preview.style.border = "1px solid #ccc";
-        preview.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
-        preview.style.background = "white";
-        preview.style.zIndex = "1000";
-        preview.style.overflow = "hidden";
-        preview.style.display = "none";
-        preview.style.borderRadius = "8px";
-
-        const iframe = document.createElement("iframe");
-        iframe.style.width = "100%";
-        iframe.style.height = "100%";
-        iframe.style.border = "none";
-        iframe.id = "hover-preview-iframe";
-
-        preview.appendChild(iframe);
-        document.body.appendChild(preview);
-    }
-
-    const iframe = document.getElementById("hover-preview-iframe");
-    iframe.src = formatUrl(url);
-
-    preview.style.left = `${event.pageX + 20}px`;
-    preview.style.top = `${event.pageY + 20}px`;
-    preview.style.display = "block";
+// Function to change image on hover
+function showImagePreview(imgElement, url) {
+    imgElement.dataset.originalSrc = imgElement.src; // Store original image
+    imgElement.src = `https://image.thum.io/get/width/300/noanimate/${url}`; // Load preview
 }
 
-// Function to hide hover preview
-function hideHoverPreview() {
-    const preview = document.getElementById("hover-preview");
-    if (preview) {
-        preview.style.display = "none";
-    }
+// Function to revert image when not hovering
+function hideImagePreview(imgElement, originalSrc) {
+    imgElement.src = imgElement.dataset.originalSrc || originalSrc; // Revert to original image
 }
