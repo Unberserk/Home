@@ -27,13 +27,21 @@
     </nav>
 
     <div class="container">
-        <div class="input-section">
-            <input type="url" id="link-input" class="input-field" placeholder="Enter URL" />
-            <input type="text" id="title-input" class="input-field" placeholder="Enter Title" />
-            <input type="file" id="image-input" accept="image/*" class="input-file" />
-            <button class="add-link-btn Navigation-Button" onclick="addLink()">Add Link</button>
-            <input type="file" id="file-input" accept=".txt">
-        </div>
+<div class="input-section">
+    <label for="link-input">Enter Link:</label>
+    <input type="text" id="link-input" class="input-field" placeholder="Enter Link">
+
+    <label for="title-input">Enter Title:</label>
+    <input type="text" id="title-input" class="input-field" placeholder="Enter Title">
+
+    <label for="image-input">Enter Image URL:</label>
+    <input type="text" id="image-input" class="input-field" placeholder="Enter Image URL">
+
+    <button class="add-link-btn" onclick="addLink()">Add Link</button>
+
+    <label for="file-input">Import Links from TXT:</label>
+    <input type="file" id="file-input" accept=".txt" class="input-file">
+</div>
 
         <div id="link-container" class="link-container">
             <!-- Links will be added here -->
