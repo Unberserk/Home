@@ -172,7 +172,7 @@ function importTxtFile(event) {
         const lines = content.split("\n").map(line => line.trim());
         
         let importedLinks = [];
-        for (let i = 0; i < lines.length; i += 4) {
+        for (let i = 0; i < lines.length; i += 3) {
             if (lines[i] && lines[i + 1] && lines[i + 2]) {
                 const linkData = {
                     url: formatUrl(lines[i]),
