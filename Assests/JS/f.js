@@ -111,10 +111,13 @@ async function getPreviewImage(url) {
     }
 }
 
-// Function to open the iframe properly
+// Function to open the iframe properly without adding to browser history
 function openIframe(url) {
     const iframeContainer = document.querySelector('.iframeContainer');
     const iframeLink = document.getElementById('iframeLink');
+
+    // Prevent browser history from being updated
+    window.history.replaceState(null, null, location.href);
 
     iframeContainer.style.display = 'block';
     iframeLink.src = "about:blank"; // Ensures a fresh load
