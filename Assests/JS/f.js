@@ -89,6 +89,18 @@ function removeLink(linkData) {
     }
 }
 
+// Function to remove all links from local storage and DOM
+function removeAllLinks() {
+    // Clear local storage
+    localStorage.removeItem("savedLinks");
+
+    // Clear all links in the DOM
+    const linkContainer = document.getElementById("link-container");
+    while (linkContainer.firstChild) {
+        linkContainer.removeChild(linkContainer.firstChild);
+    }
+}
+
 // Function to show preview image of the page
 function showPreview(url, previewContainer) {
     const previewImage = document.createElement("img");
