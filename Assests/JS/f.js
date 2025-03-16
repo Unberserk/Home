@@ -114,12 +114,14 @@ function importLinks() {
     const reader = new FileReader();
     reader.onload = function (e) {
         const links = e.target.result.split("\n").map(line => line.trim()).filter(Boolean);
-        links.forEach(linkLine => {
-            const [url, title, image] = linkLine.split(","); // Format: url,title,image
-            if (url && title) {
-                saveAndRenderLink(url.trim(), title.trim(), image ? image.trim() : "");
+        for (let i = 0; i < links.length; i += 3) {
+            const url = links[i];
+            const title = links[i + 1];
+            const image = links[i + 2];
+            if (url && title && image) {
+                saveAndRenderLink(url, title, image);
             }
-        });
+        }
     };
     reader.readAsText(file);
 }
