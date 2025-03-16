@@ -72,6 +72,7 @@ function renderLink(linkData) {
     linkDiv.appendChild(removeBtn);
     linkDiv.appendChild(previewContainer);  // Append the preview container
 
+    // When linkDiv is clicked, show the preview or open the iframe
     linkDiv.addEventListener("click", function (event) {
         if (event.target !== removeBtn) {
             showPreview(linkData.url, previewContainer); // Show preview on click
@@ -81,17 +82,42 @@ function renderLink(linkData) {
     linkContainer.appendChild(linkDiv);
 }
 
-// Function to show preview image of the page
+// Function to show preview image of the page (using the actual image if possible)
 function showPreview(url, previewContainer) {
     const previewImage = document.createElement("img");
-    previewImage.src = getPreviewImage(url); // Function to get the preview image
     previewImage.alt = "Page preview";
-    previewContainer.appendChild(previewImage);
 
-    // You can add an event listener to remove the preview or redirect after a delay
-    previewImage.addEventListener("click", function () {
-        window.open(url, "_blank");  // Redirect when the image is clicked
-    });
+    // Check if the URL points to an image directly (e.g., ends in .jpg, .png, etc.)
+    if (isImageUrl(url)) {
+        previewImage.src = url;
+        previewContainer.appendChild(previewImage);
+
+        // When clicked, open the link in an iframe
+        previewImage.addEventListener("click", function () {
+            openIframe(url);
+        });
+    } else {
+        // If it's not an image URL, try fetching the preview using the Open Graph meta tag
+        getPreviewImage(url).then(imageUrl => {
+            previewImage.src = imageUrl;
+            previewContainer.appendChild(previewImage);
+
+            // When clicked, open the link in an iframe
+            previewImage.addEventListener("click", function () {
+                openIframe(url);
+            });
+        }).catch(() => {
+            // Fallback in case preview image fetching fails
+            previewImage.src = "https://via.placeholder.com/150"; 
+            previewContainer.appendChild(previewImage);
+        });
+    }
+}
+
+// Function to check if the URL points to an image
+function isImageUrl(url) {
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'];
+    return imageExtensions.some(ext => url.toLowerCase().endsWith(ext));
 }
 
 // Function to fetch the preview image (meta tag 'og:image' or fallback to a default)
@@ -193,5 +219,16 @@ function importTxtFile(event) {
     reader.readAsText(file);
 }
 
-// Event listener for file input
+// Event listener for file input (separate "Add" button for import)
 document.getElementById("file-input").addEventListener("change", importTxtFile);
+
+// Function to remove all links from local storage and the page
+function removeAllLinks() {
+    if (confirm("Are you sure you want to remove all links?")) {
+        localStorage.removeItem("savedLinks");
+        document.getElementById("link-container").innerHTML = ""; // Clear the display
+    }
+}
+
+// Event listener for the "Remove All" button
+document.getElementById("remove-all-btn").addEventListener("click", removeAllLinks);
