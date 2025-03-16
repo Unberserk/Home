@@ -58,6 +58,9 @@ function renderLink(linkData) {
     const previewContainer = document.createElement("div");
     previewContainer.classList.add("preview-container");
 
+    // Display the preview of the link's image
+    showPreview(linkData.url, previewContainer);
+
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "Remove";
     removeBtn.classList.add("remove-link-btn");
@@ -77,9 +80,6 @@ function renderLink(linkData) {
     linkDiv.appendChild(previewContainer);  // Append the preview container
 
     linkContainer.appendChild(linkDiv);
-
-    // Show preview image in preview container
-    showPreview(linkData.url, previewContainer);
 }
 
 // Function to show preview image of the page
@@ -104,7 +104,7 @@ async function getPreviewImage(url) {
         if (ogImage && ogImage.content) {
             return ogImage.content;
         }
-        return "https://via.placeholder.com/150"; // Default placeholder
+        return "https://via.placeholder.com/150"; // Default placeholder if no og:image found
     } catch (e) {
         console.error("Error fetching preview image: ", e);
         return "https://via.placeholder.com/150"; // Default placeholder if error
@@ -116,9 +116,10 @@ function openIframe(url) {
     const iframeContainer = document.querySelector('.iframeContainer');
     const iframeLink = document.getElementById('iframeLink');
 
-    // Prevent browser history from being updated
-    window.history.replaceState(null, null, location.href);
+    // Replace current state in history without changing the URL
+    window.history.pushState({}, '', location.href);
 
+    // Open the iframe container and load the content
     iframeContainer.style.display = 'block';
     iframeLink.src = "about:blank"; // Ensures a fresh load
     setTimeout(() => {
