@@ -7,19 +7,37 @@ document.addEventListener("DOMContentLoaded", function () {
 function addLink() {
     const url = document.getElementById("link-input").value.trim();
     const title = document.getElementById("title-input").value.trim();
-    const image = document.getElementById("image-input").value.trim();
+    const imageUrl = document.getElementById("image-url-input").value.trim();
+    const imageFile = document.getElementById("image-file-input").files[0];
 
-    if (url && title && image) {
-        const linkData = { url: formatUrl(url), title: title, image: image };
-        saveToLocalStorage(linkData);
-        renderLink(linkData);
-
-        document.getElementById("link-input").value = "";
-        document.getElementById("title-input").value = "";
-        document.getElementById("image-input").value = "";
-    } else {
-        alert("Please fill out all fields!");
+    if (!url || !title || (!imageUrl && !imageFile)) {
+        alert("Please fill out all fields and choose either an image URL or file!");
+        return;
     }
+
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const imageData = e.target.result;
+            saveAndRenderLink(url, title, imageData);
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        saveAndRenderLink(url, title, imageUrl);
+    }
+
+    // Clear input fields after adding
+    document.getElementById("link-input").value = "";
+    document.getElementById("title-input").value = "";
+    document.getElementById("image-url-input").value = "";
+    document.getElementById("image-file-input").value = "";
+}
+
+// Function to save to local storage and render
+function saveAndRenderLink(url, title, image) {
+    const linkData = { url: formatUrl(url), title: title, image: image };
+    saveToLocalStorage(linkData);
+    renderLink(linkData);
 }
 
 // Function to render a single link
