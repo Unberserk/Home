@@ -38,13 +38,12 @@
             <input type="text" id="image-url-input" class="input-field" placeholder="Enter Image URL">
             <input type="file" id="image-file-input" class="input-file" accept="image/*">
 
-            <div class="button-row">
-                <button class="add-link-btn" onclick="addLink()">Add Link</button>
+            <button class="add-link-btn" onclick="addLink()">Add Link</button>
 
-                <label class="import-label">
-                    <input type="file" id="file-input" accept=".txt" class="input-file">
-                    Import Links
-                </label>
+            <label for="file-input">Import Links from TXT:</label>
+            <div class="import-section">
+                <input type="file" id="file-input" accept=".txt" class="input-file">
+                <button class="import-btn" onclick="importLinks()">Import Links</button>
             </div>
 
             <button class="remove-all-btn" onclick="removeAllLinks()">Remove All Links</button>
