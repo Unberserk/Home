@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to add link to the page and local storage
 function addLink() {
-    const url = document.getElementById("link-input").value;
-    const title = document.getElementById("title-input").value;
+    const url = document.getElementById("link-input").value.trim();
+    const title = document.getElementById("title-input").value.trim();
     const image = document.getElementById("image-input").files[0];
 
     if (url && title && image) {
@@ -15,7 +15,7 @@ function addLink() {
             const imageUrl = e.target.result;
 
             const linkData = {
-                url: url,
+                url: formatUrl(url), // Ensure proper URL format
                 title: title,
                 image: imageUrl
             };
@@ -79,7 +79,7 @@ function openIframe(url) {
     iframeContainer.style.display = 'block';
     iframeLink.src = "about:blank"; // Ensures a fresh load
     setTimeout(() => {
-        iframeLink.src = url; // Loads the new URL after a small delay
+        iframeLink.src = formatUrl(url); // Loads the properly formatted URL
     }, 50);
 }
 
@@ -92,22 +92,4 @@ function closeIframe() {
     iframeLink.src = "";
 }
 
-// Function to save link to local storage
-function saveToLocalStorage(linkData) {
-    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
-    links.push(linkData);
-    localStorage.setItem("savedLinks", JSON.stringify(links));
-}
-
-// Function to remove link from local storage
-function removeFromLocalStorage(url) {
-    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
-    links = links.filter(link => link.url !== url);
-    localStorage.setItem("savedLinks", JSON.stringify(links));
-}
-
-// Function to load links from local storage
-function loadLinks() {
-    const links = JSON.parse(localStorage.getItem("savedLinks")) || [];
-    links.forEach(renderLink);
-}
+// Function to ensure the URL is
