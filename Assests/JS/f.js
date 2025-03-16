@@ -92,4 +92,30 @@ function closeIframe() {
     iframeLink.src = "";
 }
 
-// Function to ensure the URL is
+// Function to ensure the URL is absolute
+function formatUrl(url) {
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        return "https://" + url;
+    }
+    return url;
+}
+
+// Function to save link to local storage
+function saveToLocalStorage(linkData) {
+    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
+    links.push(linkData);
+    localStorage.setItem("savedLinks", JSON.stringify(links));
+}
+
+// Function to remove link from local storage
+function removeFromLocalStorage(url) {
+    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
+    links = links.filter(link => link.url !== url);
+    localStorage.setItem("savedLinks", JSON.stringify(links));
+}
+
+// Function to load links from local storage
+function loadLinks() {
+    const links = JSON.parse(localStorage.getItem("savedLinks")) || [];
+    links.forEach(renderLink);
+}
