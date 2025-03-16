@@ -216,3 +216,7 @@ function importTxtFile(event) {
 
 // Event listener for file input
 document.getElementById("file-input").addEventListener("change", importTxtFile);
+
+// Update iframe HTML to include sandbox attribute in HTML structure
+// In your HTML, ensure you have an iframe like this:
+<iframe id="iframeLink" class="iframeLink" sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
