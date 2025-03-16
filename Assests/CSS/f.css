@@ -1,70 +1,6 @@
-/* General Body and Page Styling */
-body.default {
-    background-color: #1a1a1a;
-    color: #f1f1f1;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    padding: 20px;
-}
-
-/* Input Section */
-.input-section {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    gap: 10px;
-    margin-top: 100px; /* Increased to move buttons farther down */
-}
-
-.input-field {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #2a2a2a;
-    color: #f1f1f1;
-}
-
-.input-file {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #2a2a2a;
-}
-
-/* Add Link Button */
-.add-link-btn, .remove-link-btn {
-    background-color: #444;
-    color: #f1f1f1;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.add-link-btn:hover, .remove-link-btn:hover {
-    background-color: #666;
-}
-
-/* Remove Link Button (Red Hue) */
-.remove-link-btn {
-    background-color: #e53935; /* Red Hue */
-    transition: background-color 0.3s ease;
-}
-
-.remove-link-btn:hover {
-    background-color: #d32f2f; /* Darker red when hovered */
-}
-
-/* Import Links Button */
-.import-links-btn {
-    background-color: #4CAF50; /* Green */
+/* Remove All Button (Red Hue) */
+.remove-all-btn {
+    background-color: #e53935; /* Red */
     color: white;
     padding: 10px;
     border: none;
@@ -73,19 +9,11 @@ body.default {
     transition: background-color 0.3s ease;
 }
 
-.import-links-btn:hover {
-    background-color: #45a049; /* Darker green when hovered */
+.remove-all-btn:hover {
+    background-color: #d32f2f; /* Darker red when hovered */
 }
 
-/* Link Container */
-.link-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-/* Link Entry */
+/* Link Entry (Updated for Image Preview) */
 .link-entry {
     display: inline-block;
     margin: 10px;
@@ -102,24 +30,24 @@ body.default {
 .link-entry img {
     width: 100%;
     border-radius: 8px;
+    cursor: pointer;
 }
 
+/* Link Title */
 .link-entry p {
-    margin-top: 5px;
-    color: var(--text-color1);
-    font-size: 14px;
+    display: none; /* Hide the title text */
 }
 
 /* Iframe Container */
 .iframeContainer {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centers the iframe */
-    width: 80vw; /* Adjust width */
-    height: 80vh; /* Adjust height */
-    background: rgba(0, 0, 0, 0.8); /* Optional: Dim background */
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    background: rgba(0, 0, 0, 0.8);
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
