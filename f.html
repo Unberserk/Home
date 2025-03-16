@@ -43,10 +43,11 @@
             <label for="file-input">Import Links from TXT:</label>
             <input type="file" id="file-input" accept=".txt" class="input-file">
 
-            <div>
-                <button class="remove-all-btn" onclick="removeAllLinks()">Remove All Links</button>
-                <button class="import-links-btn" onclick="importLinks()">Import Links</button>
-            </div>
+            <!-- Import Links button -->
+            <button class="import-link-btn" onclick="importLinks()">Import Links</button>
+
+            <!-- Remove All button -->
+            <button class="remove-all-btn" onclick="removeAllLinks()">Remove All Links</button>
         </div>
 
         <div id="link-container" class="link-container">
