@@ -37,7 +37,8 @@ body.default {
     background-color: #2a2a2a;
 }
 
-.add-link-btn {
+/* Add Link Button */
+.add-link-btn, .remove-link-btn {
     background-color: #444;
     color: #f1f1f1;
     padding: 10px;
@@ -47,8 +48,18 @@ body.default {
     transition: background-color 0.3s ease;
 }
 
-.add-link-btn:hover {
+.add-link-btn:hover, .remove-link-btn:hover {
     background-color: #666;
+}
+
+/* Remove Link Button (Red Hue) */
+.remove-link-btn {
+    background-color: #e53935; /* Red Hue */
+    transition: background-color 0.3s ease;
+}
+
+.remove-link-btn:hover {
+    background-color: #d32f2f; /* Darker red when hovered */
 }
 
 /* Link Container */
