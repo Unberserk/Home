@@ -38,12 +38,15 @@
             <input type="text" id="image-url-input" class="input-field" placeholder="Enter Image URL">
             <input type="file" id="image-file-input" class="input-file" accept="image/*">
 
-            <button class="add-link-btn" onclick="addLink()">Add Link</button>
+            <div class="button-row">
+                <button class="add-link-btn" onclick="addLink()">Add Link</button>
 
-            <label for="file-input">Import Links from TXT:</label>
-            <input type="file" id="file-input" accept=".txt" class="input-file">
+                <label class="import-label">
+                    <input type="file" id="file-input" accept=".txt" class="input-file">
+                    Import Links
+                </label>
+            </div>
 
-            <!-- Remove all button -->
             <button class="remove-all-btn" onclick="removeAllLinks()">Remove All Links</button>
         </div>
 
@@ -52,7 +55,6 @@
         </div>
     </div>
 
-    <!-- Iframe container (hidden by default) -->
     <div class="iframeContainer" style="display:none;">
         <button onclick="closeIframe()" class="closeIframeBtn">X</button>
         <iframe id="iframeLink" src="" width="100%" height="600" frameborder="0" allowfullscreen></iframe>
