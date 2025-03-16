@@ -50,16 +50,6 @@ body.default {
 .add-link-btn:hover {
     background-color: #666;
 }
-.import-file {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #2a2a2a;
-    color: #f1f1f1;
-    cursor: pointer;
-    margin-top: 10px;
-}
 
 /* Link Container */
 .link-container {
