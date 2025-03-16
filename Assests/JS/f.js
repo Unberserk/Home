@@ -1,4 +1,9 @@
-// Function to add link to the page
+// Function to initialize stored links on page load
+document.addEventListener("DOMContentLoaded", function () {
+    loadLinks();
+});
+
+// Function to add link to the page and local storage
 function addLink() {
     const url = document.getElementById("link-input").value;
     const title = document.getElementById("title-input").value;
@@ -6,40 +11,21 @@ function addLink() {
 
     if (url && title && image) {
         const reader = new FileReader();
-        reader.onload = function(e) {
-            const imageUrl = e.target.result; // Get the image data URL
+        reader.onload = function (e) {
+            const imageUrl = e.target.result;
 
-            // Create a new div for the link
-            const linkDiv = document.createElement("div");
-            linkDiv.classList.add("link-entry");
+            const linkData = {
+                url: url,
+                title: title,
+                image: imageUrl
+            };
 
-            // Create the image element
-            const img = document.createElement("img");
-            img.src = imageUrl;
-            img.alt = title;
-            img.classList.add("link-image");
-
-            // Create the title element
-            const linkTitle = document.createElement("p");
-            linkTitle.textContent = title;
-
-            // Add image and title to the link div
-            linkDiv.appendChild(img);
-            linkDiv.appendChild(linkTitle);
-
-            // Add event listener to open the link in the iframe
-            linkDiv.addEventListener("click", function() {
-                openIframe(url); // Open the link in iframe
-            });
-
-            // Add the new link div to the link container
-            document.getElementById("link-container").appendChild(linkDiv);
+            saveToLocalStorage(linkData);
+            renderLink(linkData);
         };
 
-        // Read the image file as data URL
         reader.readAsDataURL(image);
 
-        // Clear the input fields after adding the link
         document.getElementById("link-input").value = "";
         document.getElementById("title-input").value = "";
         document.getElementById("image-input").value = "";
@@ -48,18 +34,80 @@ function addLink() {
     }
 }
 
-// Function to open the iframe with the selected link
+// Function to render a single link
+function renderLink(linkData) {
+    const linkContainer = document.getElementById("link-container");
+
+    const linkDiv = document.createElement("div");
+    linkDiv.classList.add("link-entry");
+
+    const img = document.createElement("img");
+    img.src = linkData.image;
+    img.alt = linkData.title;
+    img.classList.add("link-image");
+
+    const linkTitle = document.createElement("p");
+    linkTitle.textContent = linkData.title;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "Remove";
+    removeBtn.classList.add("remove-button");
+
+    removeBtn.addEventListener("click", function () {
+        removeFromLocalStorage(linkData.url);
+        linkDiv.remove();
+    });
+
+    linkDiv.appendChild(img);
+    linkDiv.appendChild(linkTitle);
+    linkDiv.appendChild(removeBtn);
+
+    linkDiv.addEventListener("click", function (event) {
+        if (event.target !== removeBtn) {
+            openIframe(linkData.url);
+        }
+    });
+
+    linkContainer.appendChild(linkDiv);
+}
+
+// Function to open the iframe properly
 function openIframe(url) {
     const iframeContainer = document.querySelector('.iframeContainer');
     const iframeLink = document.getElementById('iframeLink');
-    iframeLink.src = url; // Set the iframe's source to the URL
-    iframeContainer.style.display = 'block'; // Show the iframe container
+
+    iframeContainer.style.display = 'block';
+    iframeLink.src = "about:blank"; // Ensures a fresh load
+    setTimeout(() => {
+        iframeLink.src = url; // Loads the new URL after a small delay
+    }, 50);
 }
 
 // Function to close the iframe
 function closeIframe() {
     const iframeContainer = document.querySelector('.iframeContainer');
     const iframeLink = document.getElementById('iframeLink');
-    iframeContainer.style.display = 'none'; // Hide the iframe container
-    iframeLink.src = ''; // Stop the iframe content when closed
+
+    iframeContainer.style.display = 'none';
+    iframeLink.src = "";
+}
+
+// Function to save link to local storage
+function saveToLocalStorage(linkData) {
+    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
+    links.push(linkData);
+    localStorage.setItem("savedLinks", JSON.stringify(links));
+}
+
+// Function to remove link from local storage
+function removeFromLocalStorage(url) {
+    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
+    links = links.filter(link => link.url !== url);
+    localStorage.setItem("savedLinks", JSON.stringify(links));
+}
+
+// Function to load links from local storage
+function loadLinks() {
+    const links = JSON.parse(localStorage.getItem("savedLinks")) || [];
+    links.forEach(renderLink);
 }
