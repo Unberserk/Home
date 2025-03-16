@@ -46,6 +46,7 @@ function renderLink(linkData) {
 
     const linkDiv = document.createElement("div");
     linkDiv.classList.add("link-entry");
+    linkDiv.id = linkData.url; // Setting unique ID for each link
 
     const img = document.createElement("img");
     img.src = linkData.image;
@@ -60,11 +61,10 @@ function renderLink(linkData) {
 
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "Remove";
-    removeBtn.classList.add("remove-button");
+    removeBtn.classList.add("remove-link-btn");
 
     removeBtn.addEventListener("click", function () {
-        removeFromLocalStorage(linkData.url);
-        linkDiv.remove();
+        removeLink(linkData); // Call removeLink when clicked
     });
 
     linkDiv.appendChild(img);
@@ -72,52 +72,33 @@ function renderLink(linkData) {
     linkDiv.appendChild(removeBtn);
     linkDiv.appendChild(previewContainer);  // Append the preview container
 
-    // When linkDiv is clicked, show the preview or open the iframe
-    linkDiv.addEventListener("click", function (event) {
-        if (event.target !== removeBtn) {
-            showPreview(linkData.url, previewContainer); // Show preview on click
-        }
-    });
-
     linkContainer.appendChild(linkDiv);
 }
 
-// Function to show preview image of the page (using the actual image if possible)
-function showPreview(url, previewContainer) {
-    const previewImage = document.createElement("img");
-    previewImage.alt = "Page preview";
+// Function to remove link from local storage and DOM
+function removeLink(linkData) {
+    // Remove from Local Storage
+    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
+    links = links.filter(link => link.url !== linkData.url);
+    localStorage.setItem("savedLinks", JSON.stringify(links));
 
-    // Check if the URL points to an image directly (e.g., ends in .jpg, .png, etc.)
-    if (isImageUrl(url)) {
-        previewImage.src = url;
-        previewContainer.appendChild(previewImage);
-
-        // When clicked, open the link in an iframe
-        previewImage.addEventListener("click", function () {
-            openIframe(url);
-        });
-    } else {
-        // If it's not an image URL, try fetching the preview using the Open Graph meta tag
-        getPreviewImage(url).then(imageUrl => {
-            previewImage.src = imageUrl;
-            previewContainer.appendChild(previewImage);
-
-            // When clicked, open the link in an iframe
-            previewImage.addEventListener("click", function () {
-                openIframe(url);
-            });
-        }).catch(() => {
-            // Fallback in case preview image fetching fails
-            previewImage.src = "https://via.placeholder.com/150"; 
-            previewContainer.appendChild(previewImage);
-        });
+    // Remove the link from the DOM
+    const linkDiv = document.getElementById(linkData.url); // Use unique ID for the link
+    if (linkDiv) {
+        linkDiv.remove();
     }
 }
 
-// Function to check if the URL points to an image
-function isImageUrl(url) {
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'];
-    return imageExtensions.some(ext => url.toLowerCase().endsWith(ext));
+// Function to show preview image of the page
+function showPreview(url, previewContainer) {
+    const previewImage = document.createElement("img");
+    previewImage.src = getPreviewImage(url); // Function to get the preview image
+    previewImage.alt = "Page preview";
+    previewContainer.appendChild(previewImage);
+
+    previewImage.addEventListener("click", function () {
+        window.open(url, "_blank");  // Redirect when the image is clicked
+    });
 }
 
 // Function to fetch the preview image (meta tag 'og:image' or fallback to a default)
@@ -130,7 +111,6 @@ async function getPreviewImage(url) {
         if (ogImage && ogImage.content) {
             return ogImage.content;
         }
-        // Fallback to a default image if no og:image is found
         return "https://via.placeholder.com/150"; // Default placeholder
     } catch (e) {
         console.error("Error fetching preview image: ", e);
@@ -174,13 +154,6 @@ function saveToLocalStorage(linkData) {
     localStorage.setItem("savedLinks", JSON.stringify(links));
 }
 
-// Function to remove link from local storage
-function removeFromLocalStorage(url) {
-    let links = JSON.parse(localStorage.getItem("savedLinks")) || [];
-    links = links.filter(link => link.url !== url);
-    localStorage.setItem("savedLinks", JSON.stringify(links));
-}
-
 // Function to load links from local storage
 function loadLinks() {
     const links = JSON.parse(localStorage.getItem("savedLinks")) || [];
@@ -195,10 +168,10 @@ function importTxtFile(event) {
     const reader = new FileReader();
     reader.onload = function (e) {
         const content = e.target.result.trim();
-        const lines = content.split("\n").map(line => line.trim()).filter(line => line.length > 0); // Remove empty lines
+        const lines = content.split("\n").map(line => line.trim());
         
         let importedLinks = [];
-        for (let i = 0; i < lines.length; i += 3) {
+        for (let i = 0; i < lines.length; i += 4) {
             if (lines[i] && lines[i + 1] && lines[i + 2]) {
                 const linkData = {
                     url: formatUrl(lines[i]),
@@ -219,16 +192,5 @@ function importTxtFile(event) {
     reader.readAsText(file);
 }
 
-// Event listener for file input (separate "Add" button for import)
+// Event listener for file input
 document.getElementById("file-input").addEventListener("change", importTxtFile);
-
-// Function to remove all links from local storage and the page
-function removeAllLinks() {
-    if (confirm("Are you sure you want to remove all links?")) {
-        localStorage.removeItem("savedLinks");
-        document.getElementById("link-container").innerHTML = ""; // Clear the display
-    }
-}
-
-// Event listener for the "Remove All" button
-document.getElementById("remove-all-btn").addEventListener("click", removeAllLinks);
