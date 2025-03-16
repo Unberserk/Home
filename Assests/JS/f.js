@@ -169,7 +169,7 @@ function importTxtFile(event) {
     const reader = new FileReader();
     reader.onload = function (e) {
         const content = e.target.result.trim();
-        const lines = content.split("\n").map(line => line.trim());
+        const lines = content.split("\n").map(line => line.trim()).filter(line => line.length > 0); // Remove empty lines
         
         let importedLinks = [];
         for (let i = 0; i < lines.length; i += 3) {
