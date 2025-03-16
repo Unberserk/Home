@@ -27,15 +27,16 @@
     </nav>
 
     <div class="container">
-<div class="input-section">
+        <div class="input-section">
     <label for="link-input">Enter Link:</label>
     <input type="text" id="link-input" class="input-field" placeholder="Enter Link">
 
     <label for="title-input">Enter Title:</label>
     <input type="text" id="title-input" class="input-field" placeholder="Enter Title">
 
-    <label for="image-input">Enter Image URL:</label>
-    <input type="text" id="image-input" class="input-field" placeholder="Enter Image URL">
+    <label>Choose Image (URL or File):</label>
+    <input type="text" id="image-url-input" class="input-field" placeholder="Enter Image URL">
+    <input type="file" id="image-file-input" class="input-file" accept="image/*">
 
     <button class="add-link-btn" onclick="addLink()">Add Link</button>
 
