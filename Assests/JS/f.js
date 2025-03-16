@@ -3,28 +3,16 @@ document.addEventListener("DOMContentLoaded", function () {
     loadLinks();
 });
 
-// Function to add link to the page and local storage
+// Function to add a link from input fields
 function addLink() {
     const url = document.getElementById("link-input").value.trim();
     const title = document.getElementById("title-input").value.trim();
-    const image = document.getElementById("image-input").files[0];
+    const image = document.getElementById("image-input").value.trim();
 
     if (url && title && image) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const imageUrl = e.target.result;
-
-            const linkData = {
-                url: formatUrl(url), // Ensure proper URL format
-                title: title,
-                image: imageUrl
-            };
-
-            saveToLocalStorage(linkData);
-            renderLink(linkData);
-        };
-
-        reader.readAsDataURL(image);
+        const linkData = { url: formatUrl(url), title: title, image: image };
+        saveToLocalStorage(linkData);
+        renderLink(linkData);
 
         document.getElementById("link-input").value = "";
         document.getElementById("title-input").value = "";
@@ -79,7 +67,7 @@ function openIframe(url) {
     iframeContainer.style.display = 'block';
     iframeLink.src = "about:blank"; // Ensures a fresh load
     setTimeout(() => {
-        iframeLink.src = formatUrl(url); // Loads the properly formatted URL
+        iframeLink.src = formatUrl(url);
     }, 50);
 }
 
@@ -119,3 +107,38 @@ function loadLinks() {
     const links = JSON.parse(localStorage.getItem("savedLinks")) || [];
     links.forEach(renderLink);
 }
+
+// Function to handle file import
+function importTxtFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const content = e.target.result.trim();
+        const lines = content.split("\n").map(line => line.trim());
+        
+        let importedLinks = [];
+        for (let i = 0; i < lines.length; i += 4) {
+            if (lines[i] && lines[i + 1] && lines[i + 2]) {
+                const linkData = {
+                    url: formatUrl(lines[i]),
+                    title: lines[i + 1],
+                    image: lines[i + 2]
+                };
+                importedLinks.push(linkData);
+            }
+        }
+
+        // Save to local storage and render
+        importedLinks.forEach(link => {
+            saveToLocalStorage(link);
+            renderLink(link);
+        });
+    };
+
+    reader.readAsText(file);
+}
+
+// Event listener for file input
+document.getElementById("file-input").addEventListener("change", importTxtFile);
