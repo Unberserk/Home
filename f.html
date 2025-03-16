@@ -28,21 +28,24 @@
 
     <div class="container">
         <div class="input-section">
-    <label for="link-input">Enter Link:</label>
-    <input type="text" id="link-input" class="input-field" placeholder="Enter Link">
+            <label for="link-input">Enter Link:</label>
+            <input type="text" id="link-input" class="input-field" placeholder="Enter Link">
 
-    <label for="title-input">Enter Title:</label>
-    <input type="text" id="title-input" class="input-field" placeholder="Enter Title">
+            <label for="title-input">Enter Title:</label>
+            <input type="text" id="title-input" class="input-field" placeholder="Enter Title">
 
-    <label>Choose Image (URL or File):</label>
-    <input type="text" id="image-url-input" class="input-field" placeholder="Enter Image URL">
-    <input type="file" id="image-file-input" class="input-file" accept="image/*">
+            <label>Choose Image (URL or File):</label>
+            <input type="text" id="image-url-input" class="input-field" placeholder="Enter Image URL">
+            <input type="file" id="image-file-input" class="input-file" accept="image/*">
 
-    <button class="add-link-btn" onclick="addLink()">Add Link</button>
+            <button class="add-link-btn" onclick="addLink()">Add Link</button>
 
-    <label for="file-input">Import Links from TXT:</label>
-    <input type="file" id="file-input" accept=".txt" class="input-file">
-</div>
+            <label for="file-input">Import Links from TXT:</label>
+            <input type="file" id="file-input" accept=".txt" class="input-file">
+
+            <!-- Remove all button -->
+            <button id="remove-all-btn" class="remove-all-btn">Remove All Links</button>
+        </div>
 
         <div id="link-container" class="link-container">
             <!-- Links will be added here -->
