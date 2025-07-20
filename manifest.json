@@ -1,11 +1,10 @@
 {
   "name": "Berserk",
   "short_name": "Berserk",
-  "description": "Explore movies and series with Berserk.",
-  "start_url": "/",
+  "start_url": "/f.html",
   "display": "standalone",
-  "background_color": "#323232",
-  "theme_color": "#323232",
+  "background_color": "#0e0e0e",
+  "theme_color": "#161616",
   "icons": [
     {
       "src": "/Assests/Imgs/Logo.png",
