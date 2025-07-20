@@ -27,6 +27,3 @@ if (localStorage.getItem("theme")) {
 function setBodyClass(className) {
   document.body.setAttribute("class", className);
 }
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js');
-}
