@@ -1,85 +1,142 @@
-const bookmarkList = document.getElementById('bookmarkList');
-const addBtn = document.getElementById('addBookmarkBtn');
-const saveBtn = document.getElementById('saveBookmark');
-const modal = document.getElementById('addModal');
-const closeModal = document.getElementById('closeModal');
-const searchInput = document.getElementById('search');
-const importFile = document.getElementById('importFile');
+const linkContainer = document.getElementById("link-container");
 
-function loadBookmarks() {
-  const data = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-  displayBookmarks(data);
+function saveLinks(links) {
+  localStorage.setItem("myLinks", JSON.stringify(links));
 }
 
-function displayBookmarks(bookmarks) {
-  bookmarkList.innerHTML = '';
-  bookmarks.forEach((b, i) => {
-    const el = document.createElement('div');
-    el.className = 'bookmark';
-    el.innerHTML = `
-      <h3><a href="${b.url}" target="_blank">${b.title}</a></h3>
-      <small>${b.url}</small>
-      <small>Tags: ${b.tags.join(', ')}</small>
-      <button onclick="deleteBookmark(${i})">Delete</button>
+function getLinks() {
+  return JSON.parse(localStorage.getItem("myLinks") || "[]");
+}
+
+function renderLinks() {
+  const links = getLinks();
+  linkContainer.innerHTML = "";
+  links.forEach((link, index) => {
+    const card = document.createElement("div");
+    card.className = "link-card";
+    card.innerHTML = `
+      <img src="${link.image || './Assests/Imgs/Logo.png'}" alt="Thumbnail" onerror="this.src='./Assests/Imgs/Logo.png'">
+      <div class="link-info">
+        <h3>${link.title}</h3>
+        <button onclick="openIframe('${link.url.startsWith('http') ? link.url : 'https://' + link.url}')">Open</button>
+        <button onclick="deleteLink(${index})">Delete</button>
+      </div>
     `;
-    bookmarkList.appendChild(el);
+    linkContainer.appendChild(card);
   });
 }
 
-function deleteBookmark(index) {
-  const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-  bookmarks.splice(index, 1);
-  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-  loadBookmarks();
+function addLink() {
+  const url = document.getElementById("link-input").value.trim();
+  const title = document.getElementById("title-input").value.trim();
+  if (!url || !title) return alert("Please enter a title and link");
+
+  const imageUrl = document.getElementById("image-url-input").value.trim();
+  const fileInput = document.getElementById("image-file-input");
+  const links = getLinks();
+
+  const newLink = {
+    url,
+    title,
+    image: imageUrl || "./Assests/Imgs/Logo.png",
+    added: Date.now(),
+  };
+
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      newLink.image = e.target.result;
+      links.push(newLink);
+      saveLinks(links);
+      renderLinks();
+      clearInputs();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    links.push(newLink);
+    saveLinks(links);
+    renderLinks();
+    clearInputs();
+  }
 }
 
-addBtn.onclick = () => {
-  modal.style.display = 'flex';
-};
+function clearInputs() {
+  document.getElementById("link-input").value = "";
+  document.getElementById("title-input").value = "";
+  document.getElementById("image-url-input").value = "";
+  document.getElementById("image-file-input").value = "";
+}
 
-closeModal.onclick = () => {
-  modal.style.display = 'none';
-};
+function deleteLink(index) {
+  const links = getLinks();
+  links.splice(index, 1);
+  saveLinks(links);
+  renderLinks();
+}
 
-saveBtn.onclick = () => {
-  const title = document.getElementById('newTitle').value;
-  const url = document.getElementById('newURL').value;
-  const tags = document.getElementById('newTags').value.split(',').map(t => t.trim());
+function removeAllLinks() {
+  if (confirm("Are you sure you want to delete all links?")) {
+    localStorage.removeItem("myLinks");
+    renderLinks();
+  }
+}
 
-  if (!title || !url) return alert('Missing title or URL');
+function openIframe(url) {
+  document.querySelector(".iframeContainer").style.display = "flex";
+  const iframe = document.getElementById("iframeLink");
+  iframe.src = url;
+  // To simulate incognito, sandbox iframe without storage access:
+  iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-popups");
+}
 
-  const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-  bookmarks.push({ title, url, tags });
-  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-  modal.style.display = 'none';
-  loadBookmarks();
-};
+function closeIframe() {
+  document.querySelector(".iframeContainer").style.display = "none";
+  const iframe = document.getElementById("iframeLink");
+  iframe.src = "";
+  iframe.removeAttribute("sandbox");
+}
 
-searchInput.oninput = () => {
-  const query = searchInput.value.toLowerCase();
-  const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-  const filtered = bookmarks.filter(b =>
-    b.title.toLowerCase().includes(query) ||
-    b.url.toLowerCase().includes(query) ||
-    b.tags.join(',').toLowerCase().includes(query)
-  );
-  displayBookmarks(filtered);
-};
-
-importFile.onchange = async (e) => {
-  const file = e.target.files[0];
+function importLinks() {
+  const fileInput = document.getElementById("file-input");
+  const file = fileInput.files[0];
   if (!file) return;
-  const html = await file.text();
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-  const links = [...doc.querySelectorAll('a')].map(a => ({
-    title: a.textContent,
-    url: a.href,
-    tags: []
-  }));
-  const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-  localStorage.setItem('bookmarks', JSON.stringify([...bookmarks, ...links]));
-  loadBookmarks();
-};
 
-window.onload = loadBookmarks;
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const content = e.target.result;
+    const links = getLinks();
+
+    if (file.name.endsWith(".html")) {
+      const doc = new DOMParser().parseFromString(content, "text/html");
+      const anchors = [...doc.querySelectorAll("a")];
+      anchors.forEach((a) => {
+        links.push({
+          url: a.href,
+          title: a.textContent || a.href,
+          image: "./Assests/Imgs/Logo.png",
+          added: Date.now(),
+        });
+      });
+    } else if (file.name.endsWith(".txt")) {
+      const lines = content.split("\n");
+      lines.forEach((line) => {
+        const [title, url] = line.split(",");
+        if (url && title) {
+          links.push({
+            url: url.trim(),
+            title: title.trim(),
+            image: "./Assests/Imgs/Logo.png",
+            added: Date.now(),
+          });
+        }
+      });
+    }
+
+    saveLinks(links);
+    renderLinks();
+  };
+  reader.readAsText(file);
+}
+
+window.onload = renderLinks;
