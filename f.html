@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Berserk</title>
-  <link rel="icon" href="./Assests/Imgs/Logo.png" />
-  <link rel="stylesheet" href="./Assests/CSS/main.css" />
-  <link rel="stylesheet" href="./Assests/CSS/f.css" />
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="./Assests/Imgs/Logo.png"/>
+  <link rel="stylesheet" href="./Assests/CSS/main.css"/>
+  <link rel="stylesheet" href="./Assests/CSS/f.css"/>
+  <link rel="manifest" href="/manifest.json"/>
   <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js");
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
     }
   </script>
 </head>
 <body class="default">
   <nav class="Navigation">
     <div class="Navigation-Container">
-      <a class="Navigation-Image" href="./"><img src="./Assests/Imgs/Logo.png" alt="Logo" /></a>
+      <a class="Navigation-Image" href="./"><img src="./Assests/Imgs/Logo.png"/></a>
       <ul>
         <li class="Navigation-Button"><a href="./"><i class="las la-home"></i><p>Home</p></a></li>
         <li class="Navigation-Button"><a href="./g.html"><i class="las la-file"></i><p>Projects</p></a></li>
@@ -34,46 +34,22 @@
     <form id="linkForm" onsubmit="event.preventDefault(); addLink();">
       <div class="input-section">
         <label for="link-input">Enter Link:</label>
-        <input
-          type="text"
-          id="link-input"
-          class="input-field"
-          placeholder="Enter Link"
-          required
-        />
+        <input type="text" id="link-input" class="input-field" placeholder="https://example.com" required/>
 
         <label for="title-input">Enter Title:</label>
-        <input
-          type="text"
-          id="title-input"
-          class="input-field"
-          placeholder="Enter Title"
-          required
-        />
+        <input type="text" id="title-input" class="input-field" placeholder="My Site" required/>
+
+        <label for="folder-input">Folder (optional):</label>
+        <input type="text" id="folder-input" class="input-field" placeholder="e.g. Work"/>
 
         <label for="image-url-input">Image URL (optional):</label>
-        <input
-          type="text"
-          id="image-url-input"
-          class="input-field"
-          placeholder="Enter Image URL"
-        />
+        <input type="text" id="image-url-input" class="input-field" placeholder="https://..."/>
 
         <label for="image-file-input">Or Upload Image:</label>
-        <input
-          type="file"
-          id="image-file-input"
-          class="input-file"
-          accept="image/*"
-        />
+        <input type="file" id="image-file-input" class="input-file" accept="image/*"/>
 
         <label for="file-input">Import Links (TXT or HTML):</label>
-        <input
-          type="file"
-          id="file-input"
-          accept=".txt,.html"
-          class="input-file"
-        />
+        <input type="file" id="file-input" accept=".txt,.html" class="input-file"/>
 
         <label for="sortSelect">Sort By:</label>
         <select id="sortSelect" class="input-field">
@@ -83,12 +59,8 @@
 
         <div class="button-group">
           <button type="submit" class="add-link-btn Normal-Button">Add Link</button>
-          <button type="button" class="import-link-btn Normal-Button" onclick="importLinks()">
-            Import Links
-          </button>
-          <button type="button" class="remove-all-btn Normal-Button" onclick="removeAllLinks()">
-            Remove All Links
-          </button>
+          <button type="button" class="import-link-btn Normal-Button" onclick="importLinks()">Import Links</button>
+          <button type="button" class="remove-all-btn Normal-Button" onclick="removeAllLinks()">Remove All Links</button>
         </div>
       </div>
     </form>
@@ -98,13 +70,7 @@
 
   <div class="iframeContainer">
     <button onclick="closeIframe()" class="closeIframeBtn Normal-Button">X</button>
-    <iframe
-      id="iframeLink"
-      src=""
-      frameborder="0"
-      allowfullscreen
-      sandbox="allow-scripts allow-same-origin allow-forms"
-    ></iframe>
+    <iframe id="iframeLink" src="" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin"></iframe>
   </div>
 
   <script src="./Assests/JS/f.js"></script>
