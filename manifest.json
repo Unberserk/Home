@@ -1,18 +1,20 @@
 {
   "name": "Berserk",
   "short_name": "Berserk",
-  "start_url": "/f.html",
+  "description": "Yardy",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#0e0e0e",
-  "theme_color": "#161616",
+  "background_color": "#282828",
+  "theme_color": "#323232",
   "icons": [
     {
-      "src": "/Assests/Imgs/Logo.png",
+      "src": "/Assests/Imgs/Logo-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/Assests/Imgs/Logo.png",
+      "src": "/Assests/Imgs/Logo-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
