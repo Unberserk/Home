@@ -1,152 +1,91 @@
-/* General Body and Page Styling */
-body.default {
-    background-color: #1a1a1a;
-    color: #f1f1f1;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #0e0e0e;
+  color: #f1f1f1;
 }
 
-.container {
-    padding: 20px;
+.top-bar {
+  background-color: #161616;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-/* Input Section */
-.input-section {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    gap: 10px;
-    margin-top: 100px; /* Increased to move buttons farther down */
+.top-bar h1 {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
-.input-field {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #2a2a2a;
-    color: #f1f1f1;
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
 }
 
-.input-file {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #2a2a2a;
+input[type="text"], input[type="url"], input[type="file"], button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: white;
+  font-size: 1rem;
 }
 
-/* Add Link Button */
-.add-link-btn, .remove-link-btn {
-    background-color: #444;
-    color: #f1f1f1;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+button:hover {
+  background-color: #333;
+  cursor: pointer;
 }
 
-.add-link-btn:hover, .remove-link-btn:hover {
-    background-color: #666;
+#bookmarkList {
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
 }
 
-/* Remove Link Button (Red Hue) */
-.remove-link-btn {
-    background-color: #e53935; /* Red Hue */
-    transition: background-color 0.3s ease;
+.bookmark {
+  padding: 1rem;
+  background: #1d1d1d;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(255,255,255,0.05);
 }
 
-.remove-link-btn:hover {
-    background-color: #d32f2f; /* Darker red when hovered */
+.bookmark h3 {
+  margin: 0;
+  font-size: 1.1rem;
 }
 
-/* Remove All Links Button */
-.remove-all-btn {
-    background-color: #e53935; /* Red */
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.bookmark a {
+  color: #58a6ff;
+  text-decoration: none;
 }
 
-.remove-all-btn:hover {
-    background-color: #d32f2f; /* Darker red when hovered */
+.bookmark small {
+  display: block;
+  color: #aaa;
 }
 
-/* Link Container */
-.link-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-/* Link Entry (Updated for Image Preview) */
-.link-entry {
-    display: inline-block;
-    margin: 10px;
-    cursor: pointer;
-    text-align: center;
-    width: 150px;
-    transition: transform 0.3s ease;
-}
-
-.link-entry:hover {
-    transform: scale(1.05);
-}
-
-.link-entry img {
-    width: 100%;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* Link Title */
-.link-entry p {
-    display: none; /* Hide the title text */
-}
-
-/* Iframe Container */
-.iframeContainer {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80vw;
-    height: 80vh;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.iframeContainer iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* Close Button */
-.closeIframeBtn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: red;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-
-.closeIframeBtn:hover {
-    background: darkred;
+.modal-content {
+  background: #2a2a2a;
+  padding: 2rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 90%;
+  max-width: 400px;
 }
