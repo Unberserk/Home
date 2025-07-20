@@ -9,10 +9,12 @@
   <link rel="stylesheet" href="./Assests/CSS/f.css"/>
   <link rel="manifest" href="/manifest.json"/>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
-    }
-  </script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('✅ Service Worker registered'))
+      .catch(err => console.error('Service Worker error:', err));
+  }
+</script>
 </head>
 <body class="default">
   <nav class="Navigation">
